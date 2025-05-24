@@ -1,6 +1,6 @@
 /**********|**********|**********|
-Program: Robot_War.cpp / Robot.h
-Course: Object-Oriented Programming and Data Structures
+Program: Robot_War.cpp / BattleField.h / GenericRobot.h / Robot.h / RobotType.h / Simulator.h
+Course: Object-Oriented Programming and Data Structures (OOPDS)
 Trimester: 2420
 Name1: Ng Chi Yuan
 ID: 242UC244F5
@@ -21,6 +21,12 @@ Phone: 018-9713530
 Lecture Section: TC3L
 Tutorial Section: T12L
 **********|**********|**********/
+
+#include "BattleField.h"
+#include "GenericRobot.h"
+#include "Robot.h"
+#include "RobotType.h"
+#include "Simulator.h"
 
 #include <iostream>
 using namespace std;
