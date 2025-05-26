@@ -1,5 +1,5 @@
-#ifndef ROBOTTYPE_H
-#define ROBOTTYPEE_H
+#ifndef ROBOT_TYPE_H
+#define ROBOT_TYPE_H
 
 #include <iostream>
 using namespace std;

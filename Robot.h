@@ -142,18 +142,11 @@ public:
     }
 };
 
-// Abstract MovingRobot interface
-class MovingRobot : virtual public Robot {
+// Abstract ThinkingRobot interface
+class ThinkingRobot : virtual public Robot {
 public:
-    virtual ~MovingRobot() {}
-    virtual void actionMove(Battlefield* battlefield) = 0; // Pure virtual function for moving
-};
-
-// Abstract ShootingRobot interface
-class ShootingRobot : virtual public Robot {
-public:
-    virtual ~ShootingRobot() {}
-    virtual void actionFire(Battlefield* battlefield) = 0; // Pure virtual function for shooting
+    virtual ~ThinkingRobot() {}
+    virtual void actionThink(Battlefield* battlefield) = 0; // Pure virtual function for thinking
 };
 
 // Abstract SeeingRobot interface
@@ -163,11 +156,18 @@ public:
     virtual void actionLook(Battlefield* battlefield) = 0; // Pure virtual function for seeing
 };
 
-// Abstract ThinkingRobot interface
-class ThinkingRobot : virtual public Robot {
+// Abstract ShootingRobot interface
+class ShootingRobot : virtual public Robot {
 public:
-    virtual ~ThinkingRobot() {}
-    virtual void actionThink(Battlefield* battlefield) = 0; // Pure virtual function for thinking
+    virtual ~ShootingRobot() {}
+    virtual void actionFire(Battlefield* battlefield) = 0; // Pure virtual function for shooting
+};
+
+// Abstract MovingRobot interface
+class MovingRobot : virtual public Robot {
+public:
+    virtual ~MovingRobot() {}
+    virtual void actionMove(Battlefield* battlefield) = 0; // Pure virtual function for moving
 };
 
 #endif
