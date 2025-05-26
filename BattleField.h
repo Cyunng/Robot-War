@@ -3,40 +3,48 @@
 
 #include <iostream>
 #include <iomanip>
+#include <vector>
+#include <string>
+
 using namespace std;
 
-void displayBattlefield(int cols, int rows) {
-    cout << "    ";
-    for (int c = 0; c < cols; ++c) {
-        cout << "  " << setw(2) << setfill('0') << c << "  ";
-    }
-    cout << endl;
+class Game {
+private:
+    vector<vector<string>> battlefield_;
 
-    cout << "    +";
-    for (int c = 0; c < cols; ++c) {
-        cout << "-----+";
+public:
+    Game(int rows, int cols) {
+        battlefield_.resize(rows, vector<string>(cols, ""));
     }
-    cout << endl;
 
-    for (int r = 0; r < rows; ++r) {
-        cout << setw(2) << setfill('0') << r << "  |";
-        for (int c = 0; c < cols; ++c) {
-            cout << "     |";
+    void displayBattlefield() const {
+        cout << "    ";
+        for (int j = 0; j < battlefield_[0].size(); ++j) {
+            cout << "  " << right << setfill('0') << setw(2) << j << "  ";
         }
         cout << endl;
-
-        cout << "    |";
-        for (int c = 0; c < cols; ++c) {
-            cout << "     |";
+        for (int i = 0; i < battlefield_.size(); ++i) {
+            cout << "    ";
+            for (int j = 0; j < battlefield_[0].size(); ++j) {
+                cout << "+ --- ";
+            }
+            cout << "+" << endl;
+            cout << " " << right << setfill('0') << setw(2) << i;
+            for (int j = 0; j < battlefield_[0].size(); ++j) {
+                if (battlefield_[i][j] == "") {
+                    cout << " |    ";
+                } else {
+                    cout << " |" << left << setfill(' ') << setw(4) << battlefield_[i][j];
+                }
+            }
+            cout << " |" << endl;
         }
-        cout << endl;
-
-        cout << "    +";
-        for (int c = 0; c < cols; ++c) {
-            cout << "-----+";
+        cout << "    ";
+        for (int j = 0; j < battlefield_[0].size(); ++j) {
+            cout << "+ --- ";
         }
-        cout << endl;
+        cout << "+" << endl;
     }
-}
+};
 
 #endif
