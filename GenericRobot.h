@@ -2,10 +2,12 @@
 #define GENERIC_ROBOT_H
 
 #include "Robot.h"
+#include "BattleField.h"
 
 #include <iostream>
 #include <map>
 #include <cstdlib>
+
 using namespace std;
 
 class GenericRobot : public ThinkingRobot, public SeeingRobot, public ShootingRobot, public MovingRobot {
@@ -160,7 +162,7 @@ public:
         return trackersLeft_;
     }
 
-    bool isSheilded() const {
+    bool isShielded() const {
         return shieldActive_;
     }
 
