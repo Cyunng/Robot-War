@@ -160,7 +160,7 @@ public:
         return trackersLeft_;
     }
 
-    bool isSheilded() const {
+    bool isShielded() const {
         return shieldActive_;
     }
 
