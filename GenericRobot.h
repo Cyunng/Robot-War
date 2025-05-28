@@ -3,6 +3,7 @@
 
 #include "Robot.h"
 #include "BattleField.h"
+#include "RobotType.h"
 
 #include <iostream>
 #include <map>
@@ -66,9 +67,9 @@ public:
     virtual void actionMove(Battlefield* battlefield);
 
     virtual void actions(Battlefield* battlefield) {
-        int randomActionThink = rand() % 2; //Randmoise action order to be 50% chance
+        int randomActionThink = rand() % 2; //Randmoize action order to be 50% chance
 
-        if(randomActionThink == 0) {
+        if (randomActionThink == 0) {
             // Order 1: Think -> Look -> Fire -> Move
             actionThink(battlefield);
             actionLook(battlefield);
@@ -83,63 +84,61 @@ public:
             actionFire(battlefield);
         }
 
-    /*
-        if(isHidden_) {
+        if (isHidden_) {
             hideTurnsLeft_--;
-            if(hideTurnsLeft_ <= 0) {
+            if (hideTurnsLeft_ <= 0) {
                 isHidden_ = false;
                 cout << id_ << " is no longer hidden!" << endl;
             }
         }
-    */
     }
 
-    /*
     // Upgrade System
     virtual Robot* upgrade() {
-        if(!canUpgrade()) {
+        if (!canUpgrade()) {
             return nullptr;
         }
 
         string upgradeType = getNextUpgrade();
         Robot* upgraded = nullptr;
 
+        /*
         // Create appropriate upgraded robot
-        if(upgradeType == "HideBot") {
+        if (upgradeType == "HideBot") {
             upgraded = new HideBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "JumpBot") {
+        else if (upgradeType == "JumpBot") {
             upgraded = new JumpBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "JumpBot") {
+        else if (upgradeType == "JumpBot") {
             upgraded = new JumpBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "TeleportBot") {
+        else if (upgradeType == "TeleportBot") {
             upgraded = new TeleportBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "LongShotBot") {
+        else if (upgradeType == "LongShotBot") {
             upgraded = new LongShotBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "SemiAutoBot") {
+        else if (upgradeType == "SemiAutoBot") {
             upgraded = new SemiAutoBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "ThirtyShotBot") {
+        else if (upgradeType == "ThirtyShotBot") {
             upgraded = new ThirtyShotBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "ShieldBot") {
+        else if (upgradeType == "ShieldBot") {
             upgraded = new ShieldBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "ScoutBot") {
+        else if (upgradeType == "ScoutBot") {
             upgraded = new ScoutBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "TrackBot") {
+        else if (upgradeType == "TrackBot") {
             upgraded = new TrackBot(id_, robotPositionX, robotPositionY);
         }
-        else if(upgradeType == "RadarBot") {
+        else if (upgradeType == "RadarBot") {
             upgraded = new RadarBot(id_, robotPositionX, robotPositionY);
-        }
+        }*/
 
-        if(upgraded) {
+        if (upgraded) {
             // Transfer current state to new robot
             upgraded->setNumOfLives(numOfLives_);
             upgraded->setNumOfKills(numOfKills_);
@@ -147,7 +146,6 @@ public:
 
         return upgraded;
     }
-    */
 
     // Special Ability Accessors
     bool isHidden() const {
@@ -171,7 +169,7 @@ public:
     }
 };
 
-// Initialise static member
+// Initialize static member
 int GenericRobot::robotAutoIncrementInt_ = 0;
 
 #endif

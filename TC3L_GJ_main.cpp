@@ -31,11 +31,26 @@ Tutorial Section: T12L
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <sstream>
 #include <vector>
 #include <queue>
 
 using namespace std;
+
+void GenericRobot::actionThink(Battlefield* battlefield) {
+    cout << "GenericRobot actionThink" << endl;
+}
+
+void GenericRobot::actionLook(Battlefield* battlefield) {
+    cout << "GenericRobot actionLook" << endl;
+}
+
+void GenericRobot::actionFire(Battlefield* battlefield) {
+    cout << "GenericRobot actionFire" << endl;
+}
+
+void GenericRobot::actionMove(Battlefield* battlefield) {
+    cout << "GenericRobot actionMove" << endl;
+}
 
 int main()
 {

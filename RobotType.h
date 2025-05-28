@@ -1,12 +1,15 @@
 #ifndef ROBOT_TYPE_H
 #define ROBOT_TYPE_H
-#include <iostream>
-#include <cstdlib>
-#include <cmath>
+
 #include "GenericRobot.h"
 #include "Battlefield.h"
 
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+
 using namespace std;
+
 /////// Moving Upgrade ++ ///////
 /////// HideBot ///////
 class HideBot : public GenericRobot{
