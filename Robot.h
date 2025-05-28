@@ -24,7 +24,7 @@ class Battlefield; // Forward declatration of Battlefield class
 class Robot {
 protected:
     int robotPositionX = -1;
-    int robotPositionY = -1; // -1 means uninitialised
+    int robotPositionY = -1; // -1 means uninitialized
 
     string id_ = ""; // Display robot id on the Battlefield such as "GR01"
     string robotType_ = "";
@@ -134,6 +134,7 @@ public:
     // Pure virtual functions
     virtual void setLocation(int x, int y) = 0;
     virtual void actions(Battlefield* battlefield) = 0; // Turn actions
+    
     virtual Robot* upgrade() = 0; // Upgrade to new robot type
 
     // Overloading the <, operator for Robot class
