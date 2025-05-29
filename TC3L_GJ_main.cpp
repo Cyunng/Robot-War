@@ -92,10 +92,14 @@ int main()
     GR01 = nullptr;
     GR02 = nullptr;
 
-    /*
     Simulator simulator;
-    */
-   
+    string inputfile = 
+    string outputfile =
+    
+    simulator.setOutputFile(outputfile);
+    simulator.initalize(inputfile);
+
+    simulator.run();
     return 0;
 }
 
