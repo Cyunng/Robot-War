@@ -401,6 +401,8 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Files that need to be ignored
+.vscode\c_cpp_properties.json
 .vscode/launch.json
 .vscode/settings.json
 .main.exe
+.fileOutput1.txt

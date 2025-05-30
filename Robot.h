@@ -3,21 +3,9 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
-
-/*
-struct Position {
-    int x, y;
-
-    Position(int x = 0, int y = 0) : x(x), y(y) {}
-
-    // Check if 2 positions are equal
-    bool operator == (const Position& other) const {
-        return x == other.x && y == other.y;
-    }
-};
-*/
 
 class Battlefield; // Forward declatration of Battlefield class
 
@@ -72,6 +60,10 @@ public:
         return numOfKills_;
     }
 
+    const vector<string>& getUsedUpgrades() const {
+        return usedUpgrades_;
+    }
+
     // Setters (Mutators)
     void setX(int x) {
         robotPositionX = x;
@@ -122,9 +114,6 @@ public:
     }
 
     string getNextUpgrade() {
-        if (!canUpgrade()) {
-            return "";
-        }
         string upgrade = availableUpgrades_.back();
         availableUpgrades_.pop_back();
         usedUpgrades_.push_back(upgrade);
@@ -134,12 +123,13 @@ public:
     // Pure virtual functions
     virtual void setLocation(int x, int y) = 0;
     virtual void actions(Battlefield* battlefield) = 0; // Turn actions
-    
     virtual Robot* upgrade() = 0; // Upgrade to new robot type
 
-    // Overloading the <, operator for Robot class
+    // Overloading the << operator for Robot class
     friend ostream& operator<<(ostream &out, const Robot& r) {
-        out << r.id_ << " at (" << r.robotPositionX << ", " << r.robotPositionY << ")";
+        out << r.id_ << "_" << r.robotName_ << " at (" << r.robotPositionX << ", " << r.robotPositionY << ")" << endl;
+        out << "- Lives: " << r.numOfLives_ << ", Kills: " << r.numOfKills_ << endl;
+
         return out;
     }
 };
@@ -163,6 +153,7 @@ class ShootingRobot : virtual public Robot {
 public:
     virtual ~ShootingRobot() {}
     virtual void actionFire(Battlefield* battlefield) = 0; // Pure virtual function for shooting
+    virtual int getShellCount() const = 0;
 };
 
 // Abstract MovingRobot interface
@@ -170,6 +161,7 @@ class MovingRobot : virtual public Robot {
 public:
     virtual ~MovingRobot() {}
     virtual void actionMove(Battlefield* battlefield) = 0; // Pure virtual function for moving
+    virtual int getMovementRange() const = 0;
 };
 
 #endif

@@ -19,15 +19,15 @@ private:
     bool initialized_ = false; // Track initialization status
 
 public:
-    Simulator() = default; // This is to construct a new simulator object
+    Simulator() {} // This is to construct a new simulator object
 
-    ~Simulator() = default; // This is to destroy the simulator object
+    ~Simulator() {} // This is to destroy the simulator object
 
-    bool initalize(const string& inputFile) {
+    bool initialize(const string& inputFile) {
         inputFile_ = inputFile;
         initialized_ = false;
 
-        srand(1211109335); // To seed random number generator with a fixed seed (We use leader's ID)
+        srand(1221109335); // To seed random number generator with a fixed seed (We use leader's ID)
 
         // Read and parse input file
         if (!battlefield_.readFile(inputFile_)) {

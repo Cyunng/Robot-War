@@ -46,6 +46,7 @@ private:
             }
             else {
                 delete robot; // Clean up destroyed robots
+                robotCount_--;
             }
         }
         // Process waiting robots to add back to active list
@@ -57,7 +58,7 @@ private:
 
 public:
     // Constructor & Destructor
-    Battlefield() = default;
+    Battlefield() {}
 
     ~Battlefield() {
         // Clean up all robot objects
@@ -98,15 +99,14 @@ public:
     // Read input file to initialize battlefield and robots
     bool readFile(const string& filename) {
         ifstream file(filename);
-        if (!file) {
+
+        if (!file.is_open()) {
             cout << "Error opening file: " << filename << endl;
             return false;
         }
-        else {
-            return true;
-        }
 
         string line;
+        bool success = false;
         
         while (getline(file, line)) {
             //Parse battlefield dimensions
@@ -114,14 +114,17 @@ public:
                 istringstream iss(line.substr(7));
                 iss >> battlefieldCols_ >> battlefieldRows_;
                 battlefield_.resize(battlefieldRows_, vector<string>(battlefieldCols_, "."));
+                success = false;
             }
             // Parse total turns
             else if (line.find("turns:") != string::npos) {
                 maxTurns_ = stoi(line.substr(6));
+                success = false;
             }
             // Parse robot count
             else if (line.find("robots:") != string::npos) {
                 robotCount_ = stoi(line.substr(7));
+                success = false;
             }
             // Prase robot specifications
             else if (line.find("GenericRobot") != string::npos) {
@@ -148,8 +151,10 @@ public:
                 robot->setRobotName(robotName_);
                 robot->setRobotType(robotType_);
                 robots_.push_back(robot);
+                success = true;
             }
         }
+        return true;
     }
     
     // Place robots on the battlefield
@@ -175,12 +180,15 @@ public:
     void displayBattlefield() const {
         cout << "Display Battlefield" << endl << "    ";
 
+        // Column headers
         for (int j = 0; j < battlefield_[0].size(); ++j) {
             cout << "  " << right << setfill('0') << setw(2) << j << " ";
         }
         cout << endl;
 
+        // Battlefield grid
         for (int i = 0; i < battlefield_.size(); ++i) {
+            // Top border
             cout << "    ";
 
             for (int j = 0; j < battlefield_[i].size(); ++j) {
@@ -188,17 +196,20 @@ public:
             }
             cout << "+" << endl;
 
+            // Row content
             cout << "  " << right << setfill('0') << setw(2) << i;
 
             for (int j = 0; j < battlefield_[0].size(); ++j) {
                 if (battlefield_[i][j] == "") {
                     cout << "|" << "    ";
-                } else {
+                }
+                else {
                     cout << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
                 }
             }
             cout << "|" << endl;
         }
+        // Bottom border
         cout << "    ";
 
         for (int j = 0; j < battlefield_[0].size(); ++j) {
@@ -209,7 +220,7 @@ public:
 
     // Run one turn of the simulation
     void runTurn() {
-        if (currentTurn_ >= maxTurns_) {
+        if (currentTurn_ >= maxTurns_ || robots_.empty() || battlefield_.empty()) {
             return;
         }
 
