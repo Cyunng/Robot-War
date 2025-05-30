@@ -167,6 +167,21 @@ public:
     int getShieldCharges() const {
         return shieldCharges_;
     }
+
+    int getMovementRange() const {
+        return 1;
+    }
+
+    void activateShield() {
+        if (shieldCharges_ > 0) {
+            shieldActive_ = true;
+            shieldCharges_--;
+        }
+    }
+
+    void deactiveShield() {
+        shieldActive_ = false;
+    }
 };
 
 // Initialize static member
