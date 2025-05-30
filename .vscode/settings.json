@@ -60,7 +60,6 @@
     "ostream": "cpp",
     "cstdlib": "cpp",
     "iosfwd": "cpp",
-    "typeinfo": "cpp",
-    "iostream": "cpp"
+    "typeinfo": "cpp"
   }
 }
