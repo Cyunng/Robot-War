@@ -14,8 +14,8 @@ Name3: Lee Ru Zhen
 ID: 243UC247CN
 Email: LEE.RU.ZHEN@student.mmu.edu.my
 Phone: 011-53530330
-Name4: 
-ID: 
+Name4: Hervin Kumar S/O Baloo
+ID: 243UC247M4
 Email: HERVIN.KUMAR.BALOO@student.mmu.edu.my
 Phone: 018-9713530
 Lecture Section: TC3L
@@ -37,69 +37,88 @@ Tutorial Section: T12L
 using namespace std;
 
 void GenericRobot::actionThink(Battlefield* battlefield) {
-    cout << "GenericRobot actionThink" << endl;
+    cout << id_ << " is thinking..." << endl;
 }
 
 void GenericRobot::actionLook(Battlefield* battlefield) {
-    cout << "GenericRobot actionLook" << endl;
+    cout << id_ << " is scanning the battlefield at range of " << lookRange_ << "..." << endl;
 }
 
 void GenericRobot::actionFire(Battlefield* battlefield) {
-    cout << "GenericRobot actionFire" << endl;
+    shells_--;
+    cout << id_ << " fires! (Shells left: " << shells_ << ")" << endl;
 }
 
 void GenericRobot::actionMove(Battlefield* battlefield) {
-    cout << "GenericRobot actionMove" << endl;
+    cout << id_ << " is moving to a new position..." << endl;
 }
 
 int main()
 {
-    srand(1211109038);
+    /*
+    srand(1221109335); // To seed random number generator with a fixed seed (We use leader's ID)
 
     Battlefield battlefield;
 
     Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
+    cout << "Created robot: " << *robotGenericRobot << endl;
 
-    cout << *robotGenericRobot << endl;
     robotGenericRobot->actions(&battlefield);
 
     delete robotGenericRobot;
     robotGenericRobot = nullptr;
+    */
 
+    /*
+    // Test queues
     srand(1234567890);
 
     Robot* GR01 = new GenericRobot("GR01", 1, 1);
     Robot* GR02 = new GenericRobot("GR02", 2, 2);
 
-    cout << "queue data structure: " << endl;
+    cout << "Queue data structure: " << endl;
     queue<Robot*> destroyedRobots_;
     queue<Robot*> waitingRobots_;
 
+    // Add robots to destroyed queue
     destroyedRobots_.push(new GenericRobot("GR03", 3, 3));
     destroyedRobots_.push(new GenericRobot("GR04", 4, 4));
 
+    // Show contents of destroyed queue
+    cout << "Destroyed robots queue: " << endl;
+
     while(!destroyedRobots_.empty()) {
         Robot* r = destroyedRobots_.front();
-        cout << "destroyedRobots_: Robot " << *r << endl;
+        cout << "Destroyed Robots: Robot " << *r << endl;
+        delete r; // Clean up memory
         destroyedRobots_.pop();
     }
 
-    cout << "waitingRobots_: ?" << endl;
+    cout << "Waiting Robots: " << (waitingRobots_.empty() ? "Empty" : "Not empty") << endl;
 
+    // Clean up
     delete GR01;
     delete GR02;
 
     GR01 = nullptr;
     GR02 = nullptr;
+    */
+
+    // Run Simulator
+    cout << "Running simulator:" << endl;
 
     Simulator simulator;
-    string inputfile = 
-    string outputfile =
-    
-    simulator.setOutputFile(outputfile);
-    simulator.initalize(inputfile);
+    string inputfile = "fileInput1.txt";
+    string outputfile = "fileOutput1.txt";
 
-    simulator.run();
+    if (simulator.initialize(inputfile)) {
+        simulator.setOutputFile(outputfile);
+        simulator.run();
+    }
+    else {
+        cout << "Failed to initialize simulator!" << endl;
+    }
+
     return 0;
 }
 
