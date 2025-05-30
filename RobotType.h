@@ -1,93 +1,145 @@
 #ifndef ROBOT_TYPE_H
 #define ROBOT_TYPE_H
-
-#include "GenericRobot.h"
-#include "Battlefield.h"
-
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
-
+#include <string>
+#include "GenericRobot.h"
+#include "Battlefield.h"
 using namespace std;
 
+static bool upgradeUsedThisRound = false;
 /////// Moving Upgrade ++ ///////
 /////// HideBot ///////
 class HideBot : public GenericRobot{
+private:
+    int hideUsesLeft_ = 3;
+    bool isHidden_ = false;        
+    int hideTurnsLeft_ = 0;
 public:
-    HideBot(string id ="", int x = -1, int y = -1) : GenericRobot(id, x, y){
-        setRobotType("HideBot");
-        setLocation(x, y);
+    HideBot(string id, int x, int y) : GenericRobot(id, x, y){
+        robotType_ = "HideBot";
     }
     void actionThink(Battlefield* battlefield) override {
-        if(!isHidden()){
-            cout << id() << "is now hidden!" << endl;
+        if(hideUsesLeft_ > 0 && !isHidden()){
+            isHidden_ = true;
+            hideTurnsLeft_ = 1; ///// hide for 1 turn
+            hideUsesLeft_--;
+            cout << id_ << "is now hidden! Remaining:" << hideUsesLeft_ << endl;
         }
-    }
-    Robot* upgrade() override {
-        return new JumpBot(id(), x(), y());
     }
 };
 
 //////// JumpBot ///////
 class JumpBot : public GenericRobot{
+private:
+    int jumpUsesLeft = 3;
 public:
-    JumpBot(string id = "", int x = -1, int y = -1): GenericRobot(id, x, y){
-        setRobotType("JumpBot");
-        setLocation(x, y);
+    JumpBot(string id, int x, int y): GenericRobot(id, x, y){
+        robotType_ = "JumpBot" ;
     }
-    void actionMove(Battlefield * battlefield) override{
-        int newX = x()+ 2;
-        int newY = y()+ 2;
-        if(newX < battlefield->getBattlefieldColumns() && newY < battlefield->getBattlefieldRows()){
+    void actionMove(Battlefield* battlefield) override{
+        if(jumpUsesLeft > 0){
+            int newX = x()+ 2;
+            int newY = y()+ 2;
+            if(newX < battlefield->getBattlefieldColumns() && newY < battlefield->getBattlefieldRows()){
             setLocation(newX, newY);
-            cout << id() << "Jumped to (" << newX << ", " << newY << ")" << endl;
+            cout << id_ << "Jumped to (" << newX << ", " << newY << ")" << endl;
+            }
         }
-    }
-    Robot* upgrade() override{
-        return new TeleportBot(id(), x(), y());
+        GenericRobot::actionMove(battlefield);
     }
 };
 /////// TeleportBot //////
-
+/*class TeleportBot : public GenericRobot{
+public:
+    TeleportBot(string id, int x, int y) : GenericRobot(id, x, y){
+        robotType_ = "TeleportBot";
+    }
+    void actionMove(Battlefield* battlefield) override{
+        int newX = rand() % battlefield->getWidth();
+        int newY = rand() % battlefield->getHeight();
+        if (battlefield->isLocationEmpty(newX, newY)) {
+            battlefield->moveRobot(this, newX, newY);
+            cout << id_ << " Teleports to (" << newX << ", " << newY << ")" << endl;
+        } else {
+            GenericRobot::actionMove(battlefield);
+        }
+    }
+};*/
 
 /////// Shooting Upgrade ++ ///////
-/////// ShieldBot ///////
-/* class ShieldBot : public GenericRobot{
-private:
-    int shieldHealth_ = 3;
-
+class LongShotBot : public GenericRobot{
+protected:
+    int fireRange_ = 1;
 public:
-    ShieldBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y){
-        setRobotType("ShieldBot");
-        setLocation(x, y);
+    LongShotBot(string id, int x, int y) : GenericRobot(id, x, y){
+        robotType_ = "LongShotBot";
+        fireRange_ = 3;
     }
-    void activateShield(){
-        if(shieldHealth_ > 0 && !isShielded()){
-            shieldHealth_--;
-            shieldActive_ = true;
-            cout << id() << "Defend! Charges left: " << shieldHealth_ << endl;
-        }
-    }
-    void actionThink(Battlefield* battlefield) override {
-        if (!isShielded()) {
-            activateShield();
-        }
-    }
+    void actionFire(Battlefield* battlefield) override {
+        cout << id << "fire up to 3 units away!!\n";}
+};
 
-    void takeHit() {
-        if (shieldActive_) {
-            shieldActive_ = false;
-            cout << id() << "'s SHIELD blocked the attack!" << endl;
-        } else {
-            reduceLife();
-        }
-    }
+/////// SemiAutoBot ///////
+class SemiAutoBot : public GenericRobot{
 
-    Robot* upgrade() override {
-        return new RadarBot(id(), x(), y());
+};
+/////// ThirtyShortBot///////
+class ThirtyShotBot : public GenericRobot {
+protected:
+    int shells_ = 10;
+public:
+    ThirtyShotBot(string id, int x, int y) : GenericRobot(id, x, y) {
+        robotType_ = "ThirtyShotBot";
+        shells_ = 30;
+    }
+    void actionFire(Battlefield* battlefield) override{
+        if (shells_ > 0) {
+            shells_--;
+            cout << id << "fires a shot!! Remaining shells: " << shells_ << endl;
+        }
+        else{
+            cout << id << "is out of ammo...." << endl;
+        }
     }
 };
+/////// ShieldBot ///////
+/*class ShieldBot : public GenericRobot{
+private:
+    int shieldHealth_ = 3;
+    bool isShieldActive_ = false;
 */
+/* public:
+    ShieldBot(string id, int x, int y) : GenericRobot(id, x, y){
+        robotType_ = "ShieldBot";
+        shieldCharges_ = 3;
+    }
+
+    void actionThink(Battlefield* battlefield) override {
+        if (!shieldActive_ && shieldCharges_ > 0) {
+            shieldActive_ = true;
+            shieldCharges_--;
+            cout << id << "activated shield!! Remaining charges: " << shieldCharges_ << endl;
+        }
+    }
+
+};*/
+
+
+/////// Seeing Upgrade++ ///////
+/////// ScoutBot ///////
+class ScoutBot : public GenericRobot{
+
+};
+/////// TrackBot ///////
+class TrackBot : public GenericRobot{
+
+};
+/////// RadarBot ///////
+class RadarBot : public GenericRobot{
+
+};
 
 
 
