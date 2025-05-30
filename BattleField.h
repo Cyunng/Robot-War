@@ -83,7 +83,7 @@ public:
         return battlefieldRows_;
     }
 
-    int getCurrenTurn() const {
+    int getCurrentTurn() const {
         return currentTurn_;
     }
 
@@ -96,11 +96,14 @@ public:
     }
     
     // Read input file to initialize battlefield and robots
-    void readFile(const string& filename) {
+    bool readFile(const string& filename) {
         ifstream file(filename);
         if (!file) {
             cout << "Error opening file: " << filename << endl;
-            return;
+            return false;
+        }
+        else {
+            return true;
         }
 
         string line;
@@ -168,24 +171,6 @@ public:
         }
     }
 
-    /*
-        void placeRobots() { // To place robot at the battlefield
-        grid.assign(battlefieldRows, std::vector<std::string>(battlefieldColumns, "*"));
-
-        for (size_t i = 0; i < robots.size(); ++i) {
-            int x = robots[i]->x();
-            int y = robots[i]->y();
-            
-            if (y >= 0 && y < battlefieldRows && x >= 0 && x < battlefieldColumns) {
-                grid[y][x] = robots[i]->id(); //To place robot on grid
-            } else {
-                std::cout << "Error: Invalid location for Robot!" << robots[i]->id() << "\n";
-                std::exit(1);
-            }
-        }
-    }
-    */
-
     // Display the battlefield in the screen
     void displayBattlefield() const {
         cout << "Display Battlefield" << endl << "    ";
@@ -247,46 +232,5 @@ public:
         currentTurn_++;
     }
 };
-
-/*
-class Game {
-private:
-    vector<vector<string>> battlefield_;
-
-public:
-    Game(int rows, int cols) {
-        battlefield_.resize(rows, vector<string>(cols, ""));
-    }
-
-    void displayBattlefield() const {
-        cout << "    ";
-        for (int j = 0; j < battlefield_[0].size(); ++j) {
-            cout << "  " << right << setfill('0') << setw(2) << j << "  ";
-        }
-        cout << endl;
-        for (int i = 0; i < battlefield_.size(); ++i) {
-            cout << "    ";
-            for (int j = 0; j < battlefield_[0].size(); ++j) {
-                cout << "+ --- ";
-            }
-            cout << "+" << endl;
-            cout << " " << right << setfill('0') << setw(2) << i;
-            for (int j = 0; j < battlefield_[0].size(); ++j) {
-                if (battlefield_[i][j] == "") {
-                    cout << " |    ";
-                } else {
-                    cout << " |" << left << setfill(' ') << setw(4) << battlefield_[i][j];
-                }
-            }
-            cout << " |" << endl;
-        }
-        cout << "    ";
-        for (int j = 0; j < battlefield_[0].size(); ++j) {
-            cout << "+ --- ";
-        }
-        cout << "+" << endl;
-    }
-};
-*/
 
 #endif
