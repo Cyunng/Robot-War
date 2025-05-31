@@ -26,6 +26,7 @@ private:
     int robotCount_ = -1; // Number of robots
 
     vector<Robot*> robots_; // Active robots
+    vector<Robot*> stillAlive; // Robots that still alive
     queue<Robot*> destroyedRobots_; // Robots to respawn
     queue<Robot*> waitingRobots_; // Robots waiting to enter
 
@@ -46,13 +47,13 @@ private:
             }
             else {
                 delete robot; // Clean up destroyed robots
-                robotCount_--;
             }
         }
         // Process waiting robots to add back to active list
         while (!waitingRobots_.empty() && waitingRobots_.front()->isAlive()) {
-            robots_.push_back(waitingRobots_.front());
+            Robot* robot = waitingRobots_.front();
             waitingRobots_.pop();
+            robots_.push_back(robot);
         }
     }
 
@@ -93,7 +94,7 @@ public:
     }
 
     int getRobotCount() const {
-        return robotCount_;
+        return robots_.size();
     }
     
     // Read input file to initialize battlefield and robots
@@ -106,7 +107,6 @@ public:
         }
 
         string line;
-        bool success = false;
         
         while (getline(file, line)) {
             //Parse battlefield dimensions
@@ -114,25 +114,24 @@ public:
                 istringstream iss(line.substr(7));
                 iss >> battlefieldCols_ >> battlefieldRows_;
                 battlefield_.resize(battlefieldRows_, vector<string>(battlefieldCols_, "."));
-                success = false;
             }
             // Parse total turns
             else if (line.find("turns:") != string::npos) {
                 maxTurns_ = stoi(line.substr(6));
-                success = false;
             }
             // Parse robot count
             else if (line.find("robots:") != string::npos) {
                 robotCount_ = stoi(line.substr(7));
-                success = false;
             }
             // Prase robot specifications
             else if (line.find("GenericRobot") != string::npos) {
                 istringstream iss(line);
                 string id_, robotType_, robotName_;
-                int robotPositionX, robotPositionY;
+                int x, y;
+                string robotPositionX, robotPositionY;
 
-                iss >> robotType_ >> id_;
+                iss >> robotType_ >> id_ >> robotPositionX >> robotPositionY;
+
                 int underscore = id_.find("_");
                 if (underscore != string::npos) {
                     robotName_ = id_.substr(underscore + 1);
@@ -142,16 +141,19 @@ public:
                 iss >> robotPositionX >> robotPositionY;
 
                 // Handle random positions
-                if (robotPositionX == -1 && robotPositionY == -1) {
-                    robotPositionX = rand() % battlefieldCols_;
-                    robotPositionY = rand() % battlefieldRows_;
+                if (robotPositionX == "random" || robotPositionY == "random") {
+                    x = rand() % battlefieldCols_;
+                    y = rand() % battlefieldRows_;
+                }
+                else {
+                    x = stoi(robotPositionX);
+                    y = stoi(robotPositionY);
                 }
 
-                Robot* robot = new GenericRobot(id_, robotPositionX, robotPositionY);
+                Robot* robot = new GenericRobot(id_, x, y);
                 robot->setRobotName(robotName_);
                 robot->setRobotType(robotType_);
                 robots_.push_back(robot);
-                success = true;
             }
         }
         return true;
@@ -166,7 +168,7 @@ public:
         }
 
         for ( int i = 0; i < robots_.size(); ++i) {
-            if (robots_[i]->y() < battlefield_.size() && robots_[i]->x() < battlefield_[0].size()) {
+            if (robots_[i]->y() >=0 && robots_[i]->y() < battlefield_.size() && robots_[i]->x() >=0 && robots_[i]->x() < battlefield_[0].size()) {
                 battlefield_[robots_[i]->y()][robots_[i]->x()] = robots_[i]->id();
             }
             else {
@@ -220,18 +222,25 @@ public:
 
     // Run one turn of the simulation
     void runTurn() {
-        if (currentTurn_ >= maxTurns_ || robots_.empty() || battlefield_.empty()) {
+        if (currentTurn_ >= maxTurns_ || robots_.empty()) {
             return;
         }
 
         cout << "\n=== Turn " << currentTurn_ + 1 << " ===" << endl;
 
+        stillAlive.clear();
+
         // Process each robot's actions
         for (Robot* robot : robots_) {
             if (robot->isAlive()) {
                 robot->actions(this);
+                stillAlive.push_back(robot);
+            }
+            else {
+                destroyedRobots_.push(robot);
             }
         }
+        robots_ = stillAlive;
 
         // Update battlefield state
         placeRobots();

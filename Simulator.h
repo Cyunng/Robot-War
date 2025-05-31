@@ -43,12 +43,15 @@ public:
     void run() {
         if (!initialized_) {
             cout << "Error: Simulation is not nitialized" << endl;
+            return;
         }
 
         cout << "===== Battlefield Started  =====" << endl;
         battlefield_.displayBattlefield();
 
         while (battlefield_.getCurrentTurn() < battlefield_.getTotalTurns() && battlefield_.getRobotCount() > 1) {
+            cout << "Turn " << battlefield_.getCurrentTurn() << " / " << battlefield_.getTotalTurns() << " | Robots alive: " << battlefield_.getRobotCount() << endl;
+            
             battlefield_.runTurn();
         }
 

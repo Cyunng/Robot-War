@@ -2,7 +2,7 @@
 #define GENERIC_ROBOT_H
 
 #include "Robot.h"
-#include "BattleField.h"
+#include "Battlefield.h"
 #include "RobotType.h"
 
 #include <iostream>
@@ -102,7 +102,6 @@ public:
         string upgradeType = getNextUpgrade();
         Robot* upgraded = nullptr;
 
-        /*
         // Create appropriate upgraded robot
         if (upgradeType == "HideBot") {
             upgraded = new HideBot(id_, robotPositionX, robotPositionY);
@@ -136,7 +135,7 @@ public:
         }
         else if (upgradeType == "RadarBot") {
             upgraded = new RadarBot(id_, robotPositionX, robotPositionY);
-        }*/
+        }
 
         if (upgraded) {
             // Transfer current state to new robot
@@ -181,6 +180,13 @@ public:
 
     void deactiveShield() {
         shieldActive_ = false;
+    }
+
+    void checkAmmo() {
+        if (shells_ <= 0 && isAlive()) {
+            cout << id_ << " has no ammo left and self-destructs!" << endl;
+            setNumOfLives(0); // Kill the robot
+        }
     }
 };
 
