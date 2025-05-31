@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/leeruzhen/Desktop/Robot-War/Robot-War",
-      "program": "/Users/leeruzhen/Desktop/Robot-War/Robot-War/build/Debug/outDebug"
+      "cwd": "/Users/leeruzhen/Desktop/Robot-War",
+      "program": "/Users/leeruzhen/Desktop/Robot-War/build/Debug/outDebug"
     }
   ]
 }
