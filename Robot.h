@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -25,109 +24,53 @@ protected:
     vector<string> usedUpgrades_;
 
 public:
-    Robot(string id = "", int x = -1, int y = -1) : id_(id), robotPositionX(x), robotPositionY(y) {
-        availableUpgrades_ = {"HideBot", "JumpBot", "TeleportBot", "LongShotBot", "SemiAutoBot", "ThirtyShotBot", "ShieldBot", "ScoutBot", "TrackBot", "RadarBot"};
-    }
+    Robot(string id = "", int x = -1, int y = -1);
 
     virtual ~Robot() {}
 
     // Getters (Acessors)
-    int x() const {
-        return robotPositionX;
-    }
+    int x() const;
 
-    int y() const {
-        return robotPositionY;
-    }
+    int y() const;
 
-    string id() const {
-        return id_;
-    }
+    string id() const;
 
-    string robotType() const {
-        return robotType_;
-    }
+    string robotType() const;
 
-    string robotName() const {
-        return robotName_;
-    }
+    string robotName() const;
 
-    int numOfLives() const {
-        return numOfLives_;
-    }
+    int numOfLives() const;
 
-    int numOfKills() const {
-        return numOfKills_;
-    }
+    int numOfKills() const;
 
-    const vector<string>& getUsedUpgrades() const {
-        return usedUpgrades_;
-    }
+    const vector<string>& getUsedUpgrades() const;
 
     // Setters (Mutators)
-    void setX(int x) {
-        robotPositionX = x;
-    }
+    void setX(int x);
 
-    void setY(int y) {
-        robotPositionY = y;
-    }
+    void setY(int y);
 
-    void setId(string id) {
-        id_ = id;
-    }
+    void setId(string id);
 
-    void setRobotType(string robotType) {
-        robotType_ = robotType;
-    }
+    void setRobotType(string robotType);
 
-    void setRobotName(string robotName) {
-        robotName_ = robotName;
-    }
+    void setRobotName(string robotName);
 
-    void setNumOfLives(int numOfLives) {
-        numOfLives_ = numOfLives;
-    }
+    void setNumOfLives(int numOfLives);
 
-    void setNumOfKills(int numOfKills) {
-        numOfKills_ = numOfKills;
-    }
+    void setNumOfKills(int numOfKills);
 
     //Game mechanics
-    void reduceLife() {
-        if (numOfLives_ > 0) {
-            numOfLives_--;
-        }
-    }
+    void reduceLife();
 
-    void incrementKills() {
-        numOfKills_++;
-    }
+    void incrementKills();
 
-    bool isAlive() const {
-        return numOfLives_ > 0;
-    }
+    bool isAlive() const;
 
     //Upgrade System
-    bool canUpgrade() const {
-        return !availableUpgrades_.empty() && usedUpgrades_.size() < 3;
-    }
+    bool canUpgrade() const;
 
-    string getNextUpgrade() {
-        if (availableUpgrades_.empty()) {
-            return "";
-        }
-
-        // Randomize avaliable upgrades
-        int random = rand() % availableUpgrades_.size();
-        string upgrade = availableUpgrades_[random];
-
-        // Remove used upgrades from avaliable and add to used
-        availableUpgrades_.erase(availableUpgrades_.begin() + random);
-        usedUpgrades_.push_back(upgrade);
-
-        return upgrade;
-    }
+    string getNextUpgrade();
 
     // Pure virtual functions
     virtual void setLocation(int x, int y) = 0;
@@ -135,12 +78,7 @@ public:
     virtual Robot* upgrade() = 0; // Upgrade to new robot type
 
     // Overloading the << operator for Robot class
-    friend ostream& operator<<(ostream &out, const Robot& r) {
-        out << r.id_ << "_" << r.robotName_ << " at (" << r.robotPositionX << ", " << r.robotPositionY << ")" << endl;
-        out << "- Lives: " << r.numOfLives_ << ", Kills: " << r.numOfKills_ << endl;
-
-        return out;
-    }
+    friend ostream& operator<<(ostream &out, const Robot& r);
 };
 
 // Abstract ThinkingRobot interface
