@@ -43,12 +43,15 @@ public:
     void run() {
         if (!initialized_) {
             cout << "Error: Simulation is not nitialized" << endl;
+            return;
         }
 
         cout << "===== Battlefield Started  =====" << endl;
         battlefield_.displayBattlefield();
 
         while (battlefield_.getCurrentTurn() < battlefield_.getTotalTurns() && battlefield_.getRobotCount() > 1) {
+            cout << "Turn " << battlefield_.getCurrentTurn() << " / " << battlefield_.getTotalTurns() << " | Robots alive: " << battlefield_.getRobotCount() << endl;
+            
             battlefield_.runTurn();
         }
 
@@ -86,11 +89,11 @@ private:
         out << "Total turns played: " << battlefield_.getCurrentTurn() << endl;
 
         if (battlefield_.getRobotCount() == 1) { // If theres still robot
-            *out << "Winner: Last remaining robot" << endl;
+            out << "Winner: Last remaining robot" << endl;
         } else if (battlefield_.getRobotCount() == 0) { // If theres no robot
-            *out << "No winner: All robots destroyed" << endl;
+            out << "No winner: All robots destroyed" << endl;
         } else {
-            *out << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
+            out << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
         }
         
         if (fileStream.is_open()){

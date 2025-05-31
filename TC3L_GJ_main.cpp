@@ -1,5 +1,5 @@
 /**********|**********|**********|
-Program: Robot_War.cpp / BattleField.h / GenericRobot.h / Robot.h / RobotType.h / Simulator.h
+Program: TC3L_GJ_main.cpp / BattleField.h / GenericRobot.h / Robot.h / RobotType.h / Simulator.h
 Course: Object-Oriented Programming and Data Structures (OOPDS)
 Trimester: 2420
 Name1: Ng Chi Yuan
@@ -22,7 +22,7 @@ Lecture Section: TC3L
 Tutorial Section: T12L
 **********|**********|**********/
 
-#include "BattleField.h"
+#include "Battlefield.h"
 #include "GenericRobot.h"
 #include "Robot.h"
 #include "RobotType.h"
@@ -104,8 +104,8 @@ int main()
     GR02 = nullptr;
     */
 
-    // Run Simulator
-    cout << "Running simulator:" << endl;
+    // Run Simulation
+    cout << "Running simulation:" << endl;
 
     Simulator simulator;
     string inputfile = "fileInput1.txt";

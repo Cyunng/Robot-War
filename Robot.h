@@ -114,9 +114,18 @@ public:
     }
 
     string getNextUpgrade() {
-        string upgrade = availableUpgrades_.back();
-        availableUpgrades_.pop_back();
+        if (availableUpgrades_.empty()) {
+            return "";
+        }
+
+        // Randomize avaliable upgrades
+        int random = rand() % availableUpgrades_.size();
+        string upgrade = availableUpgrades_[random];
+
+        // Remove used upgrades from avaliable and add to used
+        availableUpgrades_.erase(availableUpgrades_.begin() + random);
         usedUpgrades_.push_back(upgrade);
+
         return upgrade;
     }
 
