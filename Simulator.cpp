@@ -23,12 +23,14 @@ void Simulator::displayResults() const {
 
     out << "\n===== Battlefield Results =====" << endl;
     out << "Total turns played: " << battlefield_.getCurrentTurn() << endl;
+    out << "Robots remaining" << battlefield_.getRobotCount() << endl;
 
     if (battlefield_.getRobotCount() == 1) { // If theres still robot
-        out << "Winner: Last remaining robot" << endl;
+        Robot* winner = battlefield_.getRobotAt(0, 0); // Find actual winner
+        out << "Winner: " << winner->id() << " (" << winner->robotType() << ")" << endl;
     }
     else if (battlefield_.getRobotCount() == 0) { // If theres no robot
-        out << "No winner: All robots destroyed" << endl;
+        out << "All robots destroyed!" << endl;
     }
     else {
         out << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
@@ -41,18 +43,13 @@ void Simulator::displayResults() const {
 
 bool Simulator::initialize(const string& inputFile) {
     inputFile_ = inputFile;
-    initialized_ = false;
-
-    srand(1221109335); // To seed random number generator with a fixed seed (We use leader's ID)
+    initialized_ = battlefield_.readFile(inputFile_);
 
     // Read and parse input file
-    if (!battlefield_.readFile(inputFile_)) {
-        cout << "Failed to read the input file" << endl;
-        return false;
+    if (initialized_) {
+        battlefield_.placeRobots();
     }
-
-    initialized_ = true;
-    return true;
+    return initialized_;
 }
 
 // To run the complete simulation
@@ -62,7 +59,12 @@ void Simulator::run() {
         return;
     }
 
+    if (!outputfile_.empty()) {
+        battlefield_.setLogFile(outputfile_);
+    }
+
     cout << "===== Battlefield Started  =====" << endl;
+    cout << "Initial battlefield state:" << endl;
     battlefield_.displayBattlefield();
 
     while (battlefield_.getCurrentTurn() < battlefield_.getTotalTurns() && battlefield_.getRobotCount() > 1) {
@@ -75,8 +77,4 @@ void Simulator::run() {
 // To create output file
 void Simulator::setOutputFile(const string& filename) {
     outputfile_ = filename;
-}
-
-bool Simulator::isInitialized() const {
-    return initialized_;
 }

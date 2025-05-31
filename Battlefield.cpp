@@ -7,8 +7,31 @@
 #include <queue>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
+
+Battlefield::Battlefield() {
+    srand(time(0));
+}
+
+Battlefield::~Battlefield() {
+    // Clean up all robot objects
+    for (Robot* robot : robots_) {
+        delete robot;
+    }
+    while (!destroyedRobots_.empty()) {
+        delete destroyedRobots_.front();
+        destroyedRobots_.pop();
+    }
+    while (!waitingRobots_.empty()) {
+        delete waitingRobots_.front();
+        waitingRobots_.pop();
+    }
+    if (logFile_.is_open()) {
+        logFile_.close();
+    }
+}
 
 void Battlefield::processRobotQueues() {
     // Process destroyed robots respawn if they have lives left
@@ -23,38 +46,22 @@ void Battlefield::processRobotQueues() {
                 newX = rand() % battlefieldCols_;
                 newY = rand() % battlefieldRows_;
             } while (!isPositionEmpty(newX, newY));
+
+            robot->setLocation(newX, newY);
+            waitingRobots_.push(robot);
+            cout << robot->id() << " waiting to respawn..." << endl;
         }    
         else {
             delete robot; // Clean up destroyed robots
         }
     }
     // Process waiting robots to add back to active list
-    while (!waitingRobots_.empty() && waitingRobots_.front()->isAlive()) {
+    if (!waitingRobots_.empty()) {
         Robot* robot = waitingRobots_.front();
         waitingRobots_.pop();
         robots_.push_back(robot);
+        cout << robot->id() << " has respawned!" << endl;
     }
-}
-
-// Getter Functions / Accessors
-int Battlefield::getBattlefieldColumns() const {
-    return battlefieldCols_;
-}
-
-int Battlefield::getBattlefieldRows() const {
-    return battlefieldRows_;
-}
-
-int Battlefield::getCurrentTurn() const {
-    return currentTurn_;
-}
-
-int Battlefield::getTotalTurns() const {
-    return maxTurns_;
-}
-
-int Battlefield::getRobotCount() const {
-    return robots_.size();
 }
 
 // Read input file to initialize battlefield and robots
@@ -88,15 +95,7 @@ bool Battlefield::readFile(const string& filename) {
             istringstream iss(line);
             string id_, robotType_, robotName_, robotPositionX, robotPositionY;
 
-            iss >> robotType_ >> id_;
-
-            int underscore = id_.find("_");
-            if (underscore != string::npos) {
-                robotName_ = id_.substr(underscore + 1);
-                id_ = id_.substr(0, underscore);
-            }
-
-            iss >> robotPositionX >> robotPositionY;
+            iss >> robotType_ >> id_ >> robotPositionX >> robotPositionY;
 
             // Handle random positions
             int x, y;
@@ -116,11 +115,11 @@ bool Battlefield::readFile(const string& filename) {
             }
 
             Robot* robot = new GenericRobot(id_, x, y);
-            robot->setRobotName(robotName_);
-            robot->setRobotType(robotType_);
+            robot->setRobotName(id_.substr(id_.find("-") + 1));
             robots_.push_back(robot);
         }
     }
+    placeRobots();
     return true;
 }
 
@@ -183,6 +182,50 @@ void Battlefield::displayBattlefield() const {
         cout << "+----";
     }
     cout << "+" << endl;
+
+    // Log to file if open
+    if (logFile_.is_open()) {
+        ofstream logFile_;
+
+        logFile_ << "Display Battlefield" << endl << "    ";
+
+        // Column headers
+        for (int j = 0; j < battlefield_[0].size(); ++j) {
+            logFile_ << "  " << right << setfill('0') << setw(2) << j << " ";
+        }
+        logFile_ << endl;
+
+        // Battlefield grid
+        for (int i = 0; i < battlefield_.size(); ++i) {
+            // Top border
+            logFile_ << "    ";
+
+            for (int j = 0; j < battlefield_[i].size(); ++j) {
+                logFile_ << "+----";
+            }
+            logFile_ << "+" << endl;
+
+            // Row content
+            logFile_ << "  " << right << setfill('0') << setw(2) << i;
+
+            for (int j = 0; j < battlefield_[0].size(); ++j) {
+                if (battlefield_[i][j] == "") {
+                    logFile_ << "|" << "    ";
+                }
+                else {
+                    logFile_ << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
+                }
+            }
+            logFile_ << "|" << endl;
+        }
+        // Bottom border
+        logFile_ << "    ";
+
+        for (int j = 0; j < battlefield_[0].size(); ++j) {
+            logFile_ << "+----";
+        }
+        logFile_ << "+" << endl;
+    }
 }
 
 // Run one turn of the simulation
@@ -217,6 +260,13 @@ void Battlefield::runTurn() {
     currentTurn_++;
 }
 
+void Battlefield::setLogFile(const string& filename) {
+    logFile_.open(filename);
+    if (!logFile_.is_open()) {
+        cout << "Failed to open log file: " << filename << endl;
+    }
+}
+
 // Helper methods
 bool Battlefield::isPositionEmpty(int robotPositionX, int robotPositionY) const {
     if (robotPositionX < 0 || robotPositionX >= battlefieldCols_ || robotPositionY < 0 || robotPositionY >= battlefieldRows_) {
@@ -229,7 +279,14 @@ bool Battlefield::hasRobotAt(int robotPositionX, int robotPositionY) const {
     if (robotPositionX < 0 || robotPositionX >= battlefieldCols_ || robotPositionY < 0 || robotPositionY >= battlefieldRows_) {
         return false;
     }
-    return !battlefield_[robotPositionY][robotPositionX].empty();
+
+    if (battlefield_[robotPositionY][robotPositionX].empty()) {
+        return false;
+    }
+
+    // Check if robot is hidden
+    Robot* robot = getRobotAt(robotPositionX, robotPositionY);
+    return robot && !robot->isHidden();
 }
 
 Robot* Battlefield::getRobotAt(int robotPositionX, int robotPositionY) const {
@@ -262,4 +319,12 @@ Robot* Battlefield::getRandomEnemy(Robot* self) const {
     }
 
     return enemyRobots[rand() % enemyRobots.size()];
+}
+
+void Battlefield::replaceRobot(Robot* oldRobot, Robot* newRobot) {
+    auto it = find(robots_.begin(), robots_.end(), oldRobot);
+    if (it != robots_.end()) {
+        *it = newRobot;
+        delete oldRobot;
+    }
 }

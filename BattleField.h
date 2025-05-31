@@ -33,38 +33,41 @@ private:
     // 2D vector representing the battlefield
     vector<vector<string>> battlefield_;
 
+    // File output
+    ofstream logFile_;
+
     // Process destroyed and waiting robots queues
     void processRobotQueues();
 
+    // Output battlefield to file
+    void logBattlefield();
+
 public:
     // Constructor & Destructor
-    Battlefield() {}
+    Battlefield();
 
-    ~Battlefield() {
-    // Clean up all robot objects
-    for (Robot* robot : robots_) {
-        delete robot;
-    }
-    while (!destroyedRobots_.empty()) {
-        delete destroyedRobots_.front();
-        destroyedRobots_.pop();
-    }
-    while (!waitingRobots_.empty()) {
-        delete waitingRobots_.front();
-        waitingRobots_.pop();
-    }
-}
+    ~Battlefield();
 
     // Getter Functions / Accessors
-    int getBattlefieldColumns() const;
+    int getBattlefieldColumns() const {
+        return battlefieldCols_;
+    }
 
-    int getBattlefieldRows() const;
+    int getBattlefieldRows() const {
+        return battlefieldRows_;
+    }
 
-    int getCurrentTurn() const;
+    int getCurrentTurn() const {
+        return currentTurn_;
+    }
 
-    int getTotalTurns() const;
+    int getTotalTurns() const {
+        return maxTurns_;
+    }
 
-    int getRobotCount() const;
+    int getRobotCount() const {
+        return robots_.size();
+    }
     
     // Read input file to initialize battlefield and robots
     bool readFile(const string& filename);
@@ -78,6 +81,9 @@ public:
     // Run one turn of the simulation
     void runTurn();
 
+    // Log File
+    void setLogFile(const string& filename);
+
     // Helper methods
     bool isPositionEmpty(int robotPositionX, int robotPositionY) const;
 
@@ -86,6 +92,8 @@ public:
     Robot* getRobotAt(int robotPositionX, int robotPositionY) const;
 
     Robot* getRandomEnemy(Robot* self) const;
+
+    void replaceRobot(Robot* oldRobot, Robot* newRobot);
 };
 
 #endif

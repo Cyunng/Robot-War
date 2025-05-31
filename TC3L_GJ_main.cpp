@@ -81,18 +81,18 @@ int main()
     */
 
     // Run Simulation
+    srand(1234567890);
+
     cout << "Running simulation:" << endl;
 
     Simulator simulator;
-    string inputfile = "fileInput1.txt";
-    string outputfile = "fileOutput1.txt";
-
-    if (simulator.initialize(inputfile)) {
-        simulator.setOutputFile(outputfile);
+    if (simulator.initialize("fileInput1.txt")) {
+        simulator.setOutputFile("fileOutput1.txt");
         simulator.run();
     }
     else {
         cout << "Failed to initialize simulator!" << endl;
+        return 1;
     }
 
     return 0;

@@ -20,8 +20,15 @@ protected:
     int numOfLives_ = 3;
     int numOfKills_ = 0;
 
+    int shells_ = 10;
+
     vector<string> availableUpgrades_;
     vector<string> usedUpgrades_;
+
+    bool isAlive_ = true;
+
+    bool isHidden_ = false;
+    int hideTurnsLeft_ = 0;
 
 public:
     Robot(string id = "", int x = -1, int y = -1);
@@ -29,46 +36,117 @@ public:
     virtual ~Robot() {}
 
     // Getters (Acessors)
-    int x() const;
+    int x() const {
+        return robotPositionX;
+    }
 
-    int y() const;
+    int y() const {
+        return robotPositionY;
+    }
 
-    string id() const;
+    string id() const {
+        return id_;
+    }
 
-    string robotType() const;
+    string robotType() const {
+        return robotType_;
+    }
 
-    string robotName() const;
+    string robotName() const {
+        return robotName_;
+    }
 
-    int numOfLives() const;
+    int numOfLives() const {
+        return numOfLives_;
+    }
 
-    int numOfKills() const;
+    int numOfKills() const {
+        return numOfKills_;
+    }
 
-    const vector<string>& getUsedUpgrades() const;
+    int getShells() const {
+        return shells_;
+    }
+
+    bool isAlive() const {
+        return isAlive_;
+    }
 
     // Setters (Mutators)
-    void setX(int x);
+    void setX(int x) {
+        robotPositionX = x;
+    }
 
-    void setY(int y);
+    void setY(int y) {
+        robotPositionY = y;
+    }
 
-    void setId(string id);
+    void setId(string id) {
+        id_ = id;
+    }
 
-    void setRobotType(string robotType);
+    void setRobotType(string robotType) {
+        robotType_ = robotType;
+    }
 
-    void setRobotName(string robotName);
+    void setRobotName(string robotName) {
+        robotName_ = robotName;
+    }
 
-    void setNumOfLives(int numOfLives);
+    void setNumOfLives(int numOfLives) {
+        numOfLives_ = numOfLives;
+        isAlive_ = numOfLives > 0;
+    }
 
-    void setNumOfKills(int numOfKills);
+    void setNumOfKills(int numOfKills) {
+        numOfKills_ = numOfKills;
+    }
+
+    void setShells(int shells) {
+        shells_ = shells;
+    }
 
     //Game mechanics
-    void reduceLife();
+    void reduceLife() {
+        if (--numOfLives_ <=0) {
+            numOfLives_ = 0;
+            isAlive_ = false;
+        }
+    }
 
-    void incrementKills();
+    void incrementKills() {
+        numOfKills_++;
+    }
 
-    bool isAlive() const;
+    // Hiding methods
+
+    virtual bool canHide() const {
+        return false;
+    }
+
+    bool isHidden() const {
+        return isHidden_;
+    }
+
+    void setHidden(bool hidden, int turns = 0) {
+        isHidden_ = hidden;
+        hideTurnsLeft_ = turns;
+    }
+
+    void decrementHideTurns() {
+        if (hideTurnsLeft_ > 0) {
+            hideTurnsLeft_--;
+        }
+
+        if (hideTurnsLeft_ == 0) {
+            isHidden_ = false;
+        }
+    }
 
     //Upgrade System
-    bool canUpgrade() const;
+    bool canUpgrade() const {
+        return !availableUpgrades_.empty() && usedUpgrades_.size() < 3;
+    }
 
     string getNextUpgrade();
 
@@ -100,7 +178,6 @@ class ShootingRobot : virtual public Robot {
 public:
     virtual ~ShootingRobot() {}
     virtual void actionFire(Battlefield* battlefield) = 0; // Pure virtual function for shooting
-    virtual int getShellCount() const = 0;
 };
 
 // Abstract MovingRobot interface
@@ -108,7 +185,6 @@ class MovingRobot : virtual public Robot {
 public:
     virtual ~MovingRobot() {}
     virtual void actionMove(Battlefield* battlefield) = 0; // Pure virtual function for moving
-    virtual int getMovementRange() const = 0;
 };
 
 #endif
