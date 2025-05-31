@@ -89,11 +89,11 @@ private:
         out << "Total turns played: " << battlefield_.getCurrentTurn() << endl;
 
         if (battlefield_.getRobotCount() == 1) { // If theres still robot
-            *out << "Winner: Last remaining robot" << endl;
+            out << "Winner: Last remaining robot" << endl;
         } else if (battlefield_.getRobotCount() == 0) { // If theres no robot
-            *out << "No winner: All robots destroyed" << endl;
+            out << "No winner: All robots destroyed" << endl;
         } else {
-            *out << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
+            out << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
         }
         
         if (fileStream.is_open()){

@@ -126,11 +126,9 @@ public:
             // Prase robot specifications
             else if (line.find("GenericRobot") != string::npos) {
                 istringstream iss(line);
-                string id_, robotType_, robotName_;
-                int x, y;
-                string robotPositionX, robotPositionY;
+                string id_, robotType_, robotName_, robotPositionX, robotPositionY;
 
-                iss >> robotType_ >> id_ >> robotPositionX >> robotPositionY;
+                iss >> robotType_ >> id_;
 
                 int underscore = id_.find("_");
                 if (underscore != string::npos) {
@@ -141,12 +139,19 @@ public:
                 iss >> robotPositionX >> robotPositionY;
 
                 // Handle random positions
-                if (robotPositionX == "random" || robotPositionY == "random") {
+                int x, y;
+
+                if (robotPositionX == "random") {
                     x = rand() % battlefieldCols_;
-                    y = rand() % battlefieldRows_;
                 }
                 else {
                     x = stoi(robotPositionX);
+                }
+
+                if (robotPositionY == "random") {
+                    y = rand() % battlefieldRows_;
+                }
+                else {
                     y = stoi(robotPositionY);
                 }
 
@@ -250,6 +255,53 @@ public:
         processRobotQueues();
 
         currentTurn_++;
+    }
+
+    // Helper methods
+    bool isPositionEmpty(int robotPositionX, int robotPositionY) const {
+        if (robotPositionX < 0 || robotPositionX >= battlefieldCols_ || robotPositionY < 0 || robotPositionY >= battlefieldRows_) {
+            return false;
+        }
+        return battlefield_[robotPositionY][robotPositionX].empty();
+    }
+
+    bool hasRobotAt(int robotPositionX, int robotPositionY) const {
+        if (robotPositionX < 0 || robotPositionX >= battlefieldCols_ || robotPositionY < 0 || robotPositionY >= battlefieldRows_) {
+            return false;
+        }
+        return !battlefield_[robotPositionY][robotPositionX].empty();
+    }
+
+    Robot* getRobotAt(int robotPositionX, int robotPositionY) const {
+        if (!hasRobotAt(robotPositionX, robotPositionY)) {
+            return nullptr;
+        }
+
+        for (Robot* robot : robots_) {
+            if (robot->x() ==  robotPositionX && robot->y() == robotPositionY) {
+                return robot;
+            }
+        }
+        return nullptr;
+    }
+
+    Robot* getRandomEnemy(Robot* self) const {
+        if (robots_.empty()) {
+            return nullptr;
+        }
+
+        vector<Robot*> enemyRobots;
+        for (Robot* robot : robots_) {
+            if (robot != self && robot->isAlive()) {
+                enemyRobots.push_back(robot);
+            }
+        }
+        
+        if (enemyRobots.empty()) {
+            return nullptr;
+        }
+
+        return enemyRobots[rand() % enemyRobots.size()];
     }
 };
 
