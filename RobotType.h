@@ -15,12 +15,14 @@ using namespace std;
 /////// HideBot ///////
 class HideBot : public GenericRobot {
 private:
-    int hideUsesLeft_ = 3;
-    bool isHidden_ = false;        
-    int hideTurnsLeft_ = 0;
+    int hideCharges_ = 3;
 
 public:
-    HideBot(string id, int x, int y);
+    HideBot(string id = "", int x = -1, int y = -1);
+
+    bool canHide() const {
+        return true;
+    } 
 
     void actionThink(Battlefield* battlefield);
 
@@ -32,10 +34,10 @@ public:
 //////// JumpBot ///////
 class JumpBot : public GenericRobot{
 private:
-    int jumpCount_ = 3;
+    int jumpCharges_ = 3;
 
 public:
-    JumpBot(string id, int x, int y);
+    JumpBot(string id = "", int x = -1, int y = -1);
 
     void actionMove(Battlefield* battlefield);
 
@@ -48,7 +50,7 @@ private:
     int teleportCharges_ = 3;
     
 public:
-    TeleportBot(string id, int x, int y);
+    TeleportBot(string id = "", int x = -1, int y = -1);
 
     void actionMove(Battlefield* battlefield);
 
@@ -59,10 +61,9 @@ public:
 class LongShotBot : public GenericRobot{
 private:
     int fireRange_ = 3;
-    int shells_ = 10;
 
 public:
-    LongShotBot(string id, int x, int y);
+    LongShotBot(string id = "", int x = -1, int y = -1);
 
     void actionFire(Battlefield* battlefield);
 
@@ -72,11 +73,10 @@ public:
 /////// SemiAutoBot ///////
 class SemiAutoBot : public GenericRobot{
     private:
-    int burstCount_ = 3;
-    int shells_ = 10;
+    int burstSize_ = 3;
     
 public:
-    SemiAutoBot(string id, int x, int y);
+    SemiAutoBot(string id = "", int x = -1, int y = -1);
 
     void actionFire(Battlefield* battlefield);
 
@@ -85,11 +85,8 @@ public:
 
 /////// ThirtyShortBot///////
 class ThirtyShotBot : public GenericRobot {
-private:
-    int shells_;
-
 public:
-    ThirtyShotBot(string id, int x, int y);
+    ThirtyShotBot(string id = "", int x = -1, int y = -1);
 
     Robot* upgrade();
 };
@@ -97,15 +94,15 @@ public:
 /////// ShieldBot ///////
 class ShieldBot : public GenericRobot{
 private:
-    int shieldHealth_ = 3;
+    int shieldCharges_ = 3;
     bool shieldActive_ = false;
     
 public:
-    ShieldBot(string id, int x, int y);
+    ShieldBot(string id = "", int x = -1, int y = -1);
 
     void actionThink(Battlefield* battlefield);
 
-    void takeDamage();
+    void reduceLife();
 
     Robot* upgrade();
 };
@@ -117,7 +114,7 @@ private:
     int scoutCharges_ = 3;
     
 public:
-    ScoutBot(string id, int x, int y);
+    ScoutBot(string id = "", int x = -1, int y = -1);
 
     void actionLook(Battlefield* battlefield);
 
@@ -131,7 +128,7 @@ private:
     map<string, pair<int, int>> trackedRobots_;
     
 public:
-    TrackBot(string id, int x, int y);
+    TrackBot(string id = "", int x = -1, int y = -1);
 
     void actionLook(Battlefield* battlefield);
 
@@ -145,7 +142,7 @@ private:
     int radarCharges_ = 3;
     
 public:
-    RadarBot(string id, int x, int y);
+    RadarBot(string id = "", int x = -1, int y = -1);
 
     void actionLook(Battlefield* battlefield);
 

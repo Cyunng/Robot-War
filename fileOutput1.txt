@@ -1,4 +1,0 @@
-
-===== Battlefield Results =====
-Total turns played: 10
-Game ended with 5 robots still alive

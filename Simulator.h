@@ -31,7 +31,9 @@ public:
     // To create output file
     void setOutputFile(const string& filename);
 
-    bool isInitialized() const;
+    bool isInitialized() const {
+        return initialized_;
+    }
 };
 
 #endif

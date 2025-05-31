@@ -15,10 +15,6 @@ private:
     // Static member for auto-incrementing ID
     static int robotAutoIncrementInt_;
 
-    // Combat Attributes
-    int shells_ = 10;
-    int fireRange_ = 1;
-
     // Vision Atrributes
     int lookRange_ = 1;
     int trackersLeft_ = 3;
@@ -29,7 +25,7 @@ private:
     int hideTurnsLeft_ = 0;
 
 public:
-    GenericRobot(string id, int x, int y);
+    GenericRobot(string id = "", int x = -1, int y = -1);
 
     // Static getter
     static int robotAutoIncrementInt();
@@ -50,13 +46,13 @@ public:
     virtual Robot* upgrade();
 
     // Special Ability Accessors
-    int getShellCount() const;
+    int getTrackersLeft() const {
+        return trackersLeft_;
+    }
 
-    int getMovementRange() const;
-
-    bool isHidden() const;
-
-    int getTrackersLeft() const;
+    bool isHidden() const {
+        return isHidden_;
+    }
 };
 
 #endif
