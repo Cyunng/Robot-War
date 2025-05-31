@@ -1,5 +1,5 @@
 /**********|**********|**********|
-Program: TC3L_GJ_main.cpp / BattleField.h / GenericRobot.h / Robot.h / RobotType.h / Simulator.h
+Program: TC3L_GJ_main.cpp / BattleField.h / BattleField.cpp / GenericRobot.h / GenericRobot.cpp / Robot.h / Robot.cpp / RobotType.h / RobotType.cpp / Simulator.h / Simulator.cpp
 Course: Object-Oriented Programming and Data Structures (OOPDS)
 Trimester: 2420
 Name1: Ng Chi Yuan
@@ -22,36 +22,12 @@ Lecture Section: TC3L
 Tutorial Section: T12L
 **********|**********|**********/
 
-#include "Battlefield.h"
-#include "GenericRobot.h"
-#include "Robot.h"
-#include "RobotType.h"
 #include "Simulator.h"
 
 #include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <vector>
-#include <queue>
+#include <cstdlib>
 
 using namespace std;
-
-void GenericRobot::actionThink(Battlefield* battlefield) {
-    cout << id_ << " is thinking..." << endl;
-}
-
-void GenericRobot::actionLook(Battlefield* battlefield) {
-    cout << id_ << " is scanning the battlefield at range of " << lookRange_ << "..." << endl;
-}
-
-void GenericRobot::actionFire(Battlefield* battlefield) {
-    shells_--;
-    cout << id_ << " fires! (Shells left: " << shells_ << ")" << endl;
-}
-
-void GenericRobot::actionMove(Battlefield* battlefield) {
-    cout << id_ << " is moving to a new position..." << endl;
-}
 
 int main()
 {

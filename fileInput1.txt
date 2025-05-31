@@ -1,8 +1,8 @@
 M by N: 10 15
 turns: 10
 robots: 5
-GenericRobot GRO1 Kidd 3 6
-GenericRobot GR02 Jet 1 1
+GenericRobot GRO1_Kidd 3 6
+GenericRobot GR02_Jet 1 1
 GenericRobot GRO3_Alpha 5 2
-GenericRobot GR0O4 Beta 2 7
-GenericRobot GRO5 Star random random 
+GenericRobot GR0O4_Beta 2 7
+GenericRobot GRO5_Star random random 
