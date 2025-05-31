@@ -292,7 +292,7 @@ public:
         cout << id << " upgraded to RadarBot!" << endl;
     }
 
-    void actionLook(Battlefield* battlefield) override {
+    void actionLook(Battlefield* battlefield) {
         if (radarCharges_ > 0) {
             cout << id() << " activates radar (range " << radarRange_ << ")!" << endl;
             
@@ -303,7 +303,7 @@ public:
                         int checkX = x() + dx;
                         int checkY = y() + dy;
                         
-                        if (battlefield->hasRobotAt(checkX, checkY)) {
+                        if (battlefield-> hasRobotAt(checkX, checkY)) {
                             Robot* spotted = battlefield->getRobotAt(checkX, checkY);
                             cout << " - Spotted " << spotted->id() << " at (" 
                                  << checkX << "," << checkY << ")" << endl;
@@ -317,8 +317,7 @@ public:
         }
     }
 
-    Robot* upgrade() override {
-        // RadarBot can upgrade to ShieldRobot
+    Robot* upgrade() {
         return nullptr;
     }
 
