@@ -31,6 +31,7 @@ Battlefield::~Battlefield() {
         waitingRobots_.pop();
     }
     if (logFile_.is_open()) {
+        logFile_.flush();
         logFile_.close();
     }
 }
@@ -242,6 +243,11 @@ void Battlefield::runTurn() {
     vector<Robot*> activeRobots = robots_;
 
     for (Robot* robot : activeRobots) {
+        if (find(robots_.begin(), robots_.end(), robot) == robots_.end()) {
+            cout << "Error: Robot " << robot->id() << " not found in active robots list." << endl;
+            log("Error: Robot " + robot->id() + " not found in active robots list.");
+            continue;
+        }
         if (robot->isAlive()) {
             log(robot->id() + " actions:");
             robot->actions(this);
@@ -273,6 +279,7 @@ void Battlefield::runTurn() {
 
 void Battlefield::setLogFile(const string& filename) {
     if (logFile_.is_open()) {
+        logFile_.flush();
         logFile_.close();
     }
 
@@ -287,6 +294,7 @@ void Battlefield::setLogFile(const string& filename) {
 
 bool Battlefield::openLogFile(const string& filename) {
     if (logFile_.is_open()) {
+        logFile_.flush();
         logFile_.close();
     }
 
@@ -362,6 +370,9 @@ void Battlefield::replaceRobot(Robot* oldRobot, Robot* newRobot) {
     if (it != robots_.end()) {
         // Preserve position
         newRobot->setLocation(oldRobot->x(), oldRobot->y());
+        newRobot->setNumOfLives(oldRobot->numOfKills());
+        newRobot->setNumOfKills(oldRobot->numOfKills());
+        newRobot->setShells(oldRobot->getShells());
 
         // Replace in vector
         *it = newRobot;

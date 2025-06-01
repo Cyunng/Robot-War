@@ -42,11 +42,11 @@ int main()
 
     Simulator simulator;
     
-    if (simulator.initialize("fileInput1.txt")) {
-        simulator.setOutputFile("fileOutput1.txt");
+    if (simulator.initialize("fileInput3.txt")) {
+        simulator.setOutputFile("fileOutput3.txt");
         simulator.run();
 
-        ifstream checkFile("fileOutput1.txt");
+        ifstream checkFile("fileOutput3.txt");
 
         if (!checkFile) {
             cout << "Warning: Output file was not created successfully!" << endl;
