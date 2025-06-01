@@ -40,6 +40,7 @@ void GenericRobot::actionThink(Battlefield* battlefield) {
 void GenericRobot::actionLook(Battlefield* battlefield) {
     cout << id_ << " is scanning the battlefield at range of " << lookRange_ << "..." << endl;
     battlefield->log(id_ + " is scanning the battlefield at range of " + to_string(lookRange_) + "...");
+    bool spotted = false;
 
     for (int dx = -1; dx <= 1; dx++) {
 
@@ -49,14 +50,22 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
                 continue; // Skip self
             }
 
-            int checkX = robotPositionX + dx;
-            int checkY = robotPositionY + dy;
+            int checkX = x() + dx;
+            int checkY = y() + dy;
 
             if (battlefield->hasRobotAt(checkX, checkY)) {
-                cout << "- Spotted robot at (" << checkX << "," << checkY << ")" << endl;
-                battlefield->log("- Spotted robot at (" + to_string(checkX) + "," + to_string(checkY) + ")");
+                Robot* robot = battlefield->getRobotAt(checkX, checkY);
+                if (robot && !robot->isHidden()) {
+                    cout << "- Spotted robot" << robot->id() << "at (" << checkX << "," << checkY << ")" << endl;
+                    battlefield->log("- Spotted robot" + robot->id() + "at (" + to_string(checkX) + "," + to_string(checkY) + ")");
+                    spotted = true;
+                }
             }
         }
+    }
+    if (!spotted) {
+        cout << id_ << " did not spot any robots nearby" << endl;
+        battlefield->log(id_ + " did not spot any robots nearby");
     }
 }
 

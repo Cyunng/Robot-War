@@ -225,8 +225,19 @@ void Battlefield::runTurn() {
         return;
     }
 
-    cout << "\n=== Turn " << currentTurn_ + 1 << " ===" << endl;
+    cout << "\n=== Starting Turn " << currentTurn_ + 1 << " ===" << endl;
     log("\n=== Turn " + to_string(currentTurn_ + 1) + " ===");
+
+    cout << "Robots count: " << robots_.size() << endl;
+    log("Robots count: " + to_string(robots_.size()));
+
+    for (Robot* r : robots_) {
+        if (r->x() < 0 || r->x() >= battlefieldCols_ || r->y() < 0 || r->y() >= battlefieldRows_) {
+            cout << "Error: Robot " << r->id() << " is out of bounds at (" << r->x() << "," << r->y() << ")" << endl;
+            log("Error: Robot " + r->id() + " is out of bounds at (" + to_string(r->x()) + "," + to_string(r->y()) + ")");
+            return;
+        }
+    }
 
     vector<Robot*> activeRobots = robots_;
 
@@ -308,8 +319,12 @@ bool Battlefield::hasRobotAt(int robotPositionX, int robotPositionY) const {
     }
 
     // Check if robot is hidden
-    Robot* robot = getRobotAt(robotPositionX, robotPositionY);
-    return robot && !robot->isHidden();
+    for (Robot* robot : robots_) {
+        if (robot->x() == robotPositionX && robot->y() == robotPositionY && !robot->isHidden()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 Robot* Battlefield::getRobotAt(int robotPositionX, int robotPositionY) const {
