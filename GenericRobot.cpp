@@ -122,7 +122,7 @@ void GenericRobot::actionFire(Battlefield* battlefield) {
         if (rand() % 100 < 70) { // 70% hit chance
             targetRobot->reduceLife();
             cout << "- Hit! " << targetRobot->id() << " now has " << targetRobot->numOfLives() << " lives left" << endl;
-            battlefield->log("- Hit" + targetRobot->id() + " now has " + to_string(targetRobot->numOfLives()) + " lives left");
+            battlefield->log("- Hit " + targetRobot->id() + " now has " + to_string(targetRobot->numOfLives()) + " lives left");
 
             if (!targetRobot->isAlive()) {
                 numOfKills_++;
@@ -184,7 +184,6 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
 }
 
 void GenericRobot::actions(Battlefield* battlefield) {
-    cout << id_ << ": actions() START" << endl; // DEBUG
 
     if (!isAlive()) {
         return;
@@ -209,11 +208,10 @@ void GenericRobot::actions(Battlefield* battlefield) {
         Robot* upgraded = upgrade(battlefield);
         if (upgraded) {
             battlefield->replaceRobot(this, upgraded);
+            return;
         }
     }
     cout << id_ << ": lives=" << numOfLives_ << ", shells=" << shells_ << ", alive=" << (isAlive() ? "true" : "false") << endl;
-
-    cout << id_ << ": actions() END" << endl; // DEBUG
 }
 
 // Upgrade System
@@ -279,9 +277,12 @@ Robot* GenericRobot::upgrade(Battlefield* battlefield) {
         upgraded->setNumOfLives(numOfLives_);
         upgraded->setNumOfKills(numOfKills_);
         upgraded->setShells(shells_);
+        upgraded->setHidden(isHidden(), hideTurnsLeft_);
+
         cout << id_ << " upgraded to " << upgradeType << "!" << endl;
         battlefield->log(id_ + " upgraded to " + upgradeType + "!");
+        return upgraded;
     }
 
-    return upgraded;
+    return nullptr;
 }

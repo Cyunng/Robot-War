@@ -86,7 +86,7 @@ void Simulator::run() {
         battlefield_.setLogFile(outputfile_);
     }
 
-    battlefield_.openLogFile("fileOutput3.txt");
+    battlefield_.openLogFile("fileOutput1.txt");
 
     cout << "===== Battlefield Started  =====" << endl;
     battlefield_.log("===== Battlefield Started  =====");
