@@ -133,10 +133,12 @@ void GenericRobot::actionFire(Battlefield* battlefield) {
                 if (canUpgrade()) {
                     Robot* upgraded = upgrade(battlefield);
 
+                    /*
                     if (upgraded) {
                         battlefield->replaceRobot(this, upgraded);
                         return; // Skip move after upgrade
                     }
+                    */
                 }
             } 
         }
@@ -206,10 +208,12 @@ void GenericRobot::actions(Battlefield* battlefield) {
 
     if (numOfKills_ > usedUpgrades_.size() && canUpgrade()) {
         Robot* upgraded = upgrade(battlefield);
+        /*
         if (upgraded) {
             battlefield->replaceRobot(this, upgraded);
             return;
         }
+        */
     }
     cout << id_ << ": lives=" << numOfLives_ << ", shells=" << shells_ << ", alive=" << (isAlive() ? "true" : "false") << endl;
 }

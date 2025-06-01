@@ -53,14 +53,6 @@ void Simulator::displayResults() const {
         cout << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
         log("Game ended with " + to_string(battlefield_.getRobotCount()) + " robots still alive");
     }
-    
-    /*
-    cout << oss.str();
-    if (useFile) {
-        fileStream << oss.str();
-        fileStream.close();
-    }
-    */
 }
 
 bool Simulator::initialize(const string& inputFile) {
@@ -86,7 +78,7 @@ void Simulator::run() {
         battlefield_.setLogFile(outputfile_);
     }
 
-    battlefield_.openLogFile("fileOutput1.txt");
+    battlefield_.openLogFile("fileOutput3.txt");
 
     cout << "===== Battlefield Started  =====" << endl;
     battlefield_.log("===== Battlefield Started  =====");

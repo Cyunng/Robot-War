@@ -92,6 +92,7 @@ public:
 
     void closeLogFile() {
         if (logFile_.is_open()) {
+            logFile_.flush();
             logFile_.close();
         }
     }

@@ -1,6 +1,15 @@
+Battlefield dimensens set to: 10x15
+Total turns set to: 10
+Robot count set to: 5
+Created robot: GRO1_Kidd at (3,6)
+Created robot: GR02_Jet at (1,1)
+Created robot: GRO3_Alpha at (5,2)
+Created robot: GR0O4_Beta at (2,7)
+Created robot: GRO5_Star at (4,10)
+Output file set to: fileOutput1.txt
 ===== Battlefield Started  =====
 Display Battlefield
-      00   01   02   03   04   05   06   07   08   09 
+      00   01   02   03   04   05   06   07   08   09
     +----+----+----+----+----+----+----+----+----+----+
   00|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
@@ -20,9 +29,9 @@ Display Battlefield
     +----+----+----+----+----+----+----+----+----+----+
   08|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  09|    |    |GRO5|    |    |    |    |    |    |    |
+  09|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  10|    |    |    |    |    |    |    |    |    |    |
+  10|    |    |    |    |GRO5|    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   11|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
@@ -32,133 +41,64 @@ Display Battlefield
     +----+----+----+----+----+----+----+----+----+----+
   14|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
+Loop start: currentTurn = 0
+Starting turn 1
 
-
-=== Turn 1 ===
+=== Starting Turn 1 ===
 Robots count: 5
-GRO1_Kidd actions:
 GRO1_Kidd is thinking...
 GRO1_Kidd is scanning the battlefield at range of 1...
 - Spotted robotGR0O4_Betaat (2,7)
-GRO1_Kidd fires at GR0O4_Beta)
-!
+GRO1_Kidd fires at GR0O4_Beta!
 - Missed!
-GRO1_Kidd moves to (2,6)
-GR02_Jet actions:
+GRO1_Kidd moves to (3,7)
+GRO1_Kidd: lives=3, shells=9, alive=true
 GR02_Jet is thinking...
 GR02_Jet is scanning the battlefield at range of 1...
 GR02_Jet did not spot any robots nearby
-GR02_Jet could not find a target to fire at
 GR02_Jet moves to (2,0)
-GRO3_Alpha actions:
+GR02_Jet could not find a target to fire at
+GR02_Jet: lives=3, shells=10, alive=true
 GRO3_Alpha is thinking...
 GRO3_Alpha is scanning the battlefield at range of 1...
 GRO3_Alpha did not spot any robots nearby
 GRO3_Alpha could not find a target to fire at
-GRO3_Alpha moves to (5,1)
-GR0O4_Beta actions:
+GRO3_Alpha moves to (5,3)
+GRO3_Alpha: lives=3, shells=10, alive=true
 GR0O4_Beta is thinking...
 GR0O4_Beta is scanning the battlefield at range of 1...
 GR0O4_Beta did not spot any robots nearby
+GR0O4_Beta moves to (2,6)
 GR0O4_Beta could not find a target to fire at
-GR0O4_Beta moves to (1,6)
-GRO5_Star actions:
+GR0O4_Beta: lives=3, shells=10, alive=true
 GRO5_Star is thinking...
 GRO5_Star is scanning the battlefield at range of 1...
 GRO5_Star did not spot any robots nearby
 GRO5_Star could not find a target to fire at
-GRO5_Star moves to (1,10)
+GRO5_Star moves to (5,9)
+GRO5_Star: lives=3, shells=10, alive=true
 Display Battlefield
       00   01   02   03   04   05   06   07   08   09 
     +----+----+----+----+----+----+----+----+----+----+
   00|    |    |GR02|    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  01|    |    |    |    |    |GRO3|    |    |    |    |
+  01|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   02|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  03|    |    |    |    |    |    |    |    |    |    |
+  03|    |    |    |    |    |GRO3|    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   04|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   05|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  06|    |GR0O|GRO1|    |    |    |    |    |    |    |
+  06|    |    |GR0O|    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  07|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  08|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  09|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  10|    |GRO5|    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  11|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  12|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  13|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  14|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-
-
-=== Turn 2 ===
-Robots count: 5
-GRO1_Kidd actions:
-GRO1_Kidd is thinking...
-GRO1_Kidd is scanning the battlefield at range of 1...
-- Spotted robotGR0O4_Betaat (1,6)
-GRO1_Kidd fires at GR0O4_Beta)
-!
-- Missed!
-GRO1_Kidd moves to (2,7)
-GR02_Jet actions:
-GR02_Jet is thinking...
-GR02_Jet is scanning the battlefield at range of 1...
-GR02_Jet did not spot any robots nearby
-GR02_Jet could not find a target to fire at
-GR02_Jet moves to (3,1)
-GRO3_Alpha actions:
-GRO3_Alpha is thinking...
-GRO3_Alpha is scanning the battlefield at range of 1...
-GRO3_Alpha did not spot any robots nearby
-GRO3_Alpha could not find a target to fire at
-GRO3_Alpha moves to (6,0)
-GR0O4_Beta actions:
-GR0O4_Beta is thinking...
-GR0O4_Beta is scanning the battlefield at range of 1...
-GR0O4_Beta did not spot any robots nearby
-GR0O4_Beta moves to (0,6)
-GR0O4_Beta could not find a target to fire at
-GRO5_Star actions:
-GRO5_Star is thinking...
-GRO5_Star is scanning the battlefield at range of 1...
-GRO5_Star did not spot any robots nearby
-GRO5_Star could not find a target to fire at
-GRO5_Star moves to (1,9)
-Display Battlefield
-      00   01   02   03   04   05   06   07   08   09 
-    +----+----+----+----+----+----+----+----+----+----+
-  00|    |    |    |    |    |    |GRO3|    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  01|    |    |    |GR02|    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  02|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  03|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  04|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  05|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  06|GR0O|    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  07|    |    |GRO1|    |    |    |    |    |    |    |
+  07|    |    |    |GRO1|    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   08|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  09|    |GRO5|    |    |    |    |    |    |    |    |
+  09|    |    |    |    |    |GRO5|    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   10|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
@@ -170,60 +110,65 @@ Display Battlefield
     +----+----+----+----+----+----+----+----+----+----+
   14|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 1
+Turn 2 complete. Robots remaining: 5
+Completed turn 1
+Robots remaining: 5
+Starting turn 2
 
-
-=== Turn 3 ===
+=== Starting Turn 2 ===
 Robots count: 5
-GRO1_Kidd actions:
 GRO1_Kidd is thinking...
 GRO1_Kidd is scanning the battlefield at range of 1...
-GRO1_Kidd did not spot any robots nearby
-GRO1_Kidd moves to (3,6)
-GRO1_Kidd could not find a target to fire at
-GR02_Jet actions:
+- Spotted robotGR0O4_Betaat (2,6)
+GRO1_Kidd moves to (2,7)
+GRO1_Kidd fires at GR0O4_Beta!
+- Hit! GR0O4_Beta now has 2 lives left
+GRO1_Kidd: lives=3, shells=8, alive=true
 GR02_Jet is thinking...
 GR02_Jet is scanning the battlefield at range of 1...
 GR02_Jet did not spot any robots nearby
+GR02_Jet moves to (1,1)
 GR02_Jet could not find a target to fire at
-GR02_Jet moves to (4,1)
-GRO3_Alpha actions:
+GR02_Jet: lives=3, shells=10, alive=true
 GRO3_Alpha is thinking...
 GRO3_Alpha is scanning the battlefield at range of 1...
 GRO3_Alpha did not spot any robots nearby
+GRO3_Alpha moves to (6,4)
 GRO3_Alpha could not find a target to fire at
-GRO3_Alpha moves to (5,1)
-GR0O4_Beta actions:
+GRO3_Alpha: lives=3, shells=10, alive=true
 GR0O4_Beta is thinking...
 GR0O4_Beta is scanning the battlefield at range of 1...
 GR0O4_Beta did not spot any robots nearby
 GR0O4_Beta could not find a target to fire at
-GR0O4_Beta moves to (0,7)
-GRO5_Star actions:
+GR0O4_Beta moves to (3,6)
+GR0O4_Beta: lives=2, shells=10, alive=true
 GRO5_Star is thinking...
 GRO5_Star is scanning the battlefield at range of 1...
 GRO5_Star did not spot any robots nearby
-GRO5_Star moves to (0,8)
+GRO5_Star moves to (6,8)
 GRO5_Star could not find a target to fire at
+GRO5_Star: lives=3, shells=10, alive=true
 Display Battlefield
       00   01   02   03   04   05   06   07   08   09 
     +----+----+----+----+----+----+----+----+----+----+
   00|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  01|    |    |    |    |GR02|GRO3|    |    |    |    |
+  01|    |GR02|    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   02|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   03|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  04|    |    |    |    |    |    |    |    |    |    |
+  04|    |    |    |    |    |    |GRO3|    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   05|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  06|    |    |    |GRO1|    |    |    |    |    |    |
+  06|    |    |    |GR0O|    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  07|GR0O|    |    |    |    |    |    |    |    |    |
+  07|    |    |GRO1|    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  08|GRO5|    |    |    |    |    |    |    |    |    |
+  08|    |    |    |    |    |    |GRO5|    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   09|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
@@ -237,64 +182,136 @@ Display Battlefield
     +----+----+----+----+----+----+----+----+----+----+
   14|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 2
+Turn 3 complete. Robots remaining: 5
+Completed turn 2
+Robots remaining: 5
+Starting turn 3
 
-
-=== Turn 4 ===
+=== Starting Turn 3 ===
 Robots count: 5
-GRO1_Kidd actions:
 GRO1_Kidd is thinking...
 GRO1_Kidd is scanning the battlefield at range of 1...
-GRO1_Kidd did not spot any robots nearby
-GRO1_Kidd moves to (3,7)
-GRO1_Kidd could not find a target to fire at
-GR02_Jet actions:
+- Spotted robotGR0O4_Betaat (3,6)
+GRO1_Kidd fires at GR0O4_Beta!
+- Hit! GR0O4_Beta now has 1 lives left
+GRO1_Kidd moves to (3,8)
+GRO1_Kidd: lives=3, shells=7, alive=true
 GR02_Jet is thinking...
 GR02_Jet is scanning the battlefield at range of 1...
-- Spotted robotGRO3_Alphaat (5,1)
-GR02_Jet fires at GRO3_Alpha)
-!
-- Missed!
-GR02_Jet moves to (3,1)
-GRO3_Alpha actions:
+GR02_Jet did not spot any robots nearby
+GR02_Jet could not find a target to fire at
+GR02_Jet moves to (0,1)
+GR02_Jet: lives=3, shells=10, alive=true
 GRO3_Alpha is thinking...
 GRO3_Alpha is scanning the battlefield at range of 1...
 GRO3_Alpha did not spot any robots nearby
+GRO3_Alpha moves to (6,3)
 GRO3_Alpha could not find a target to fire at
-GRO3_Alpha moves to (4,0)
-GR0O4_Beta actions:
+GRO3_Alpha: lives=3, shells=10, alive=true
 GR0O4_Beta is thinking...
 GR0O4_Beta is scanning the battlefield at range of 1...
-- Spotted robotGRO5_Starat (0,8)
-GR0O4_Beta moves to (1,7)
-GR0O4_Beta fires at GRO5_Star)
-!
-- Hit GRO5_Star now has 2 lives left
-GRO5_Star actions:
+GR0O4_Beta did not spot any robots nearby
+GR0O4_Beta could not find a target to fire at
+GR0O4_Beta moves to (2,5)
+GR0O4_Beta: lives=1, shells=10, alive=true
 GRO5_Star is thinking...
 GRO5_Star is scanning the battlefield at range of 1...
 GRO5_Star did not spot any robots nearby
 GRO5_Star could not find a target to fire at
-GRO5_Star moves to (1,8)
+GRO5_Star moves to (7,8)
+GRO5_Star: lives=3, shells=10, alive=true
 Display Battlefield
-      00   01   02   03   04   05   06   07   08   09 
+      00   01   02   03   04   05   06   07   08   09
     +----+----+----+----+----+----+----+----+----+----+
-  00|    |    |    |    |GRO3|    |    |    |    |    |
+  00|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  01|    |    |    |GR02|    |    |    |    |    |    |
+  01|GR02|    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   02|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  03|    |    |    |    |    |    |    |    |    |    |
+  03|    |    |    |    |    |    |GRO3|    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   04|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  05|    |    |GR0O|    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  06|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  07|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  08|    |    |    |GRO1|    |    |    |GRO5|    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  09|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  10|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  11|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  12|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  13|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  14|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 3
+Turn 4 complete. Robots remaining: 5
+Completed turn 3
+Robots remaining: 5
+Starting turn 4
+
+=== Starting Turn 4 ===
+Robots count: 5
+GRO1_Kidd is thinking...
+GRO1_Kidd is scanning the battlefield at range of 1...
+GRO1_Kidd did not spot any robots nearby
+GRO1_Kidd moves to (2,7)
+GRO1_Kidd could not find a target to fire at
+GRO1_Kidd: lives=3, shells=7, alive=true
+GR02_Jet is thinking...
+GR02_Jet is scanning the battlefield at range of 1...
+GR02_Jet did not spot any robots nearby
+GR02_Jet could not find a target to fire at
+GR02_Jet moves to (1,1)
+GR02_Jet: lives=3, shells=10, alive=true
+GRO3_Alpha is thinking...
+GRO3_Alpha is scanning the battlefield at range of 1...
+GRO3_Alpha did not spot any robots nearby
+GRO3_Alpha moves to (5,3)
+GRO3_Alpha could not find a target to fire at
+GRO3_Alpha: lives=3, shells=10, alive=true
+GR0O4_Beta is thinking...
+GR0O4_Beta is scanning the battlefield at range of 1...
+GR0O4_Beta did not spot any robots nearby
+GR0O4_Beta moves to (3,4)
+GR0O4_Beta could not find a target to fire at
+GR0O4_Beta: lives=1, shells=10, alive=true
+GRO5_Star is thinking...
+GRO5_Star is scanning the battlefield at range of 1...
+GRO5_Star did not spot any robots nearby
+GRO5_Star moves to (8,8)
+GRO5_Star could not find a target to fire at
+GRO5_Star: lives=3, shells=10, alive=true
+Display Battlefield
+      00   01   02   03   04   05   06   07   08   09 
+    +----+----+----+----+----+----+----+----+----+----+
+  00|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  01|    |GR02|    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  02|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  03|    |    |    |    |    |GRO3|    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  04|    |    |    |GR0O|    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   05|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   06|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  07|    |GR0O|    |GRO1|    |    |    |    |    |    |
+  07|    |    |GRO1|    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  08|    |GRO5|    |    |    |    |    |    |    |    |
+  08|    |    |    |    |    |    |    |    |GRO5|    |
     +----+----+----+----+----+----+----+----+----+----+
   09|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
@@ -308,135 +325,68 @@ Display Battlefield
     +----+----+----+----+----+----+----+----+----+----+
   14|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 4
+Turn 5 complete. Robots remaining: 5
+Completed turn 4
+Robots remaining: 5
+Starting turn 5
 
-
-=== Turn 5 ===
+=== Starting Turn 5 ===
 Robots count: 5
-GRO1_Kidd actions:
 GRO1_Kidd is thinking...
 GRO1_Kidd is scanning the battlefield at range of 1...
 GRO1_Kidd did not spot any robots nearby
+GRO1_Kidd moves to (1,7)
 GRO1_Kidd could not find a target to fire at
-GRO1_Kidd moves to (2,7)
-GR02_Jet actions:
+GRO1_Kidd: lives=3, shells=7, alive=true
 GR02_Jet is thinking...
 GR02_Jet is scanning the battlefield at range of 1...
-- Spotted robotGRO3_Alphaat (4,0)
-GR02_Jet moves to (4,2)
+GR02_Jet did not spot any robots nearby
 GR02_Jet could not find a target to fire at
-GRO3_Alpha actions:
+GR02_Jet moves to (1,0)
+GR02_Jet: lives=3, shells=10, alive=true
 GRO3_Alpha is thinking...
 GRO3_Alpha is scanning the battlefield at range of 1...
 GRO3_Alpha did not spot any robots nearby
-GRO3_Alpha moves to (4,1)
+GRO3_Alpha moves to (6,4)
 GRO3_Alpha could not find a target to fire at
-GR0O4_Beta actions:
-GR0O4_Beta is thinking...
-GR0O4_Beta is scanning the battlefield at range of 1...
-- Spotted robotGRO5_Starat (1,8)
-GR0O4_Beta fires at GRO5_Star)
-!
-- Missed!
-GR0O4_Beta moves to (1,6)
-GRO5_Star actions:
-GRO5_Star is thinking...
-GRO5_Star is scanning the battlefield at range of 1...
-GRO5_Star did not spot any robots nearby
-GRO5_Star moves to (1,9)
-GRO5_Star could not find a target to fire at
-Display Battlefield
-      00   01   02   03   04   05   06   07   08   09 
-    +----+----+----+----+----+----+----+----+----+----+
-  00|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  01|    |    |    |    |GRO3|    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  02|    |    |    |    |GR02|    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  03|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  04|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  05|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  06|    |GR0O|    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  07|    |    |GRO1|    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  08|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  09|    |GRO5|    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  10|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  11|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  12|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  13|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-  14|    |    |    |    |    |    |    |    |    |    |
-    +----+----+----+----+----+----+----+----+----+----+
-
-
-=== Turn 6 ===
-Robots count: 5
-GRO1_Kidd actions:
-GRO1_Kidd is thinking...
-GRO1_Kidd is scanning the battlefield at range of 1...
-- Spotted robotGR0O4_Betaat (1,6)
-GRO1_Kidd moves to (2,6)
-GRO1_Kidd fires at GR0O4_Beta)
-!
-- Hit GR0O4_Beta now has 2 lives left
-GR02_Jet actions:
-GR02_Jet is thinking...
-GR02_Jet is scanning the battlefield at range of 1...
-- Spotted robotGRO3_Alphaat (4,1)
-GR02_Jet moves to (3,3)
-GR02_Jet could not find a target to fire at
-GRO3_Alpha actions:
-GRO3_Alpha is thinking...
-GRO3_Alpha is scanning the battlefield at range of 1...
-GRO3_Alpha did not spot any robots nearby
-GRO3_Alpha moves to (4,0)
-GRO3_Alpha could not find a target to fire at
-GR0O4_Beta actions:
+GRO3_Alpha: lives=3, shells=10, alive=true
 GR0O4_Beta is thinking...
 GR0O4_Beta is scanning the battlefield at range of 1...
 GR0O4_Beta did not spot any robots nearby
 GR0O4_Beta could not find a target to fire at
-GR0O4_Beta moves to (1,5)
-GRO5_Star actions:
+GR0O4_Beta moves to (3,3)
+GR0O4_Beta: lives=1, shells=10, alive=true
 GRO5_Star is thinking...
 GRO5_Star is scanning the battlefield at range of 1...
 GRO5_Star did not spot any robots nearby
-GRO5_Star moves to (2,10)
 GRO5_Star could not find a target to fire at
+GRO5_Star moves to (9,8)
+GRO5_Star: lives=3, shells=10, alive=true
 Display Battlefield
-      00   01   02   03   04   05   06   07   08   09 
+      00   01   02   03   04   05   06   07   08   09
     +----+----+----+----+----+----+----+----+----+----+
-  00|    |    |    |    |GRO3|    |    |    |    |    |
+  00|    |GR02|    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   01|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   02|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  03|    |    |    |GR02|    |    |    |    |    |    |
+  03|    |    |    |GR0O|    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  04|    |    |    |    |    |    |    |    |    |    |
+  04|    |    |    |    |    |    |GRO3|    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  05|    |GR0O|    |    |    |    |    |    |    |    |
+  05|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  06|    |    |GRO1|    |    |    |    |    |    |    |
+  06|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  07|    |    |    |    |    |    |    |    |    |    |
+  07|    |GRO1|    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  08|    |    |    |    |    |    |    |    |    |    |
+  08|    |    |    |    |    |    |    |    |    |GRO5|
     +----+----+----+----+----+----+----+----+----+----+
   09|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  10|    |    |GRO5|    |    |    |    |    |    |    |
+  10|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   11|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
@@ -446,68 +396,70 @@ Display Battlefield
     +----+----+----+----+----+----+----+----+----+----+
   14|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 5
+Turn 6 complete. Robots remaining: 5
+Completed turn 5
+Robots remaining: 5
+Starting turn 6
 
-
-=== Turn 7 ===
+=== Starting Turn 6 ===
 Robots count: 5
-GRO1_Kidd actions:
 GRO1_Kidd is thinking...
 GRO1_Kidd is scanning the battlefield at range of 1...
-- Spotted robotGR0O4_Betaat (1,5)
-GRO1_Kidd moves to (2,5)
-GRO1_Kidd fires at GR0O4_Beta)
-!
-- Hit GR0O4_Beta now has 1 lives left
-GR02_Jet actions:
+GRO1_Kidd did not spot any robots nearby
+GRO1_Kidd moves to (0,7)
+GRO1_Kidd could not find a target to fire at
+GRO1_Kidd: lives=3, shells=7, alive=true
 GR02_Jet is thinking...
 GR02_Jet is scanning the battlefield at range of 1...
 GR02_Jet did not spot any robots nearby
-GR02_Jet moves to (3,2)
 GR02_Jet could not find a target to fire at
-GRO3_Alpha actions:
+GR02_Jet moves to (2,1)
+GR02_Jet: lives=3, shells=10, alive=true
 GRO3_Alpha is thinking...
 GRO3_Alpha is scanning the battlefield at range of 1...
 GRO3_Alpha did not spot any robots nearby
-GRO3_Alpha moves to (3,1)
 GRO3_Alpha could not find a target to fire at
-GR0O4_Beta actions:
+GRO3_Alpha moves to (5,4)
+GRO3_Alpha: lives=3, shells=10, alive=true
 GR0O4_Beta is thinking...
 GR0O4_Beta is scanning the battlefield at range of 1...
 GR0O4_Beta did not spot any robots nearby
-GR0O4_Beta moves to (1,6)
 GR0O4_Beta could not find a target to fire at
-GRO5_Star actions:
+GR0O4_Beta moves to (4,4)
+GR0O4_Beta: lives=1, shells=10, alive=true
 GRO5_Star is thinking...
 GRO5_Star is scanning the battlefield at range of 1...
 GRO5_Star did not spot any robots nearby
 GRO5_Star could not find a target to fire at
-GRO5_Star moves to (3,11)
+GRO5_Star moves to (9,9)
+GRO5_Star: lives=3, shells=10, alive=true
 Display Battlefield
-      00   01   02   03   04   05   06   07   08   09 
+      00   01   02   03   04   05   06   07   08   09
     +----+----+----+----+----+----+----+----+----+----+
   00|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  01|    |    |    |GRO3|    |    |    |    |    |    |
+  01|    |    |GR02|    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  02|    |    |    |GR02|    |    |    |    |    |    |
+  02|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   03|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  04|    |    |    |    |    |    |    |    |    |    |
+  04|    |    |    |    |GR0O|GRO3|    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  05|    |    |GRO1|    |    |    |    |    |    |    |
+  05|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  06|    |GR0O|    |    |    |    |    |    |    |    |
+  06|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  07|    |    |    |    |    |    |    |    |    |    |
+  07|GRO1|    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   08|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  09|    |    |    |    |    |    |    |    |    |    |
+  09|    |    |    |    |    |    |    |    |    |GRO5|
     +----+----+----+----+----+----+----+----+----+----+
   10|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
-  11|    |    |    |GRO5|    |    |    |    |    |    |
+  11|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
   12|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
@@ -515,27 +467,297 @@ Display Battlefield
     +----+----+----+----+----+----+----+----+----+----+
   14|    |    |    |    |    |    |    |    |    |    |
     +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 6
+Turn 7 complete. Robots remaining: 5
+Completed turn 6
+Robots remaining: 5
+Starting turn 7
 
-
-=== Turn 8 ===
+=== Starting Turn 7 ===
 Robots count: 5
-GRO1_Kidd actions:
 GRO1_Kidd is thinking...
 GRO1_Kidd is scanning the battlefield at range of 1...
-- Spotted robotGR0O4_Betaat (1,6)
-GRO1_Kidd fires at GR0O4_Beta)
-!
-- Hit GR0O4_Beta now has 0 lives left
-- GR0O4_Beta destroyed!
-GRO1_Kidd can upgrade! Available options: 
-HideBot 
-JumpBot 
-TeleportBot 
-LongShotBot 
-SemiAutoBot 
-ThirtyShotBot 
-ShieldBot 
-ScoutBot 
-TrackBot 
-GRO1_Kidd upgraded to HideBot!
-Replaced robot GRO1_Kidd with GRO1_Kidd
+GRO1_Kidd did not spot any robots nearby
+GRO1_Kidd could not find a target to fire at
+GRO1_Kidd moves to (1,6)
+GRO1_Kidd: lives=3, shells=7, alive=true
+GR02_Jet is thinking...
+GR02_Jet is scanning the battlefield at range of 1...
+GR02_Jet did not spot any robots nearby
+GR02_Jet moves to (1,2)
+GR02_Jet could not find a target to fire at
+GR02_Jet: lives=3, shells=10, alive=true
+GRO3_Alpha is thinking...
+GRO3_Alpha is scanning the battlefield at range of 1...
+- Spotted robotGR0O4_Betaat (4,4)
+GRO3_Alpha moves to (6,4)
+GRO3_Alpha could not find a target to fire at
+GRO3_Alpha: lives=3, shells=10, alive=true
+GR0O4_Beta is thinking...
+GR0O4_Beta is scanning the battlefield at range of 1...
+GR0O4_Beta did not spot any robots nearby
+GR0O4_Beta moves to (5,3)
+GR0O4_Beta could not find a target to fire at
+GR0O4_Beta: lives=1, shells=10, alive=true
+GRO5_Star is thinking...
+GRO5_Star is scanning the battlefield at range of 1...
+GRO5_Star did not spot any robots nearby
+GRO5_Star moves to (8,8)
+GRO5_Star could not find a target to fire at
+GRO5_Star: lives=3, shells=10, alive=true
+Display Battlefield
+      00   01   02   03   04   05   06   07   08   09 
+    +----+----+----+----+----+----+----+----+----+----+
+  00|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  01|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  02|    |GR02|    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  03|    |    |    |    |    |GR0O|    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  04|    |    |    |    |    |    |GRO3|    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  05|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  06|    |GRO1|    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  07|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  08|    |    |    |    |    |    |    |    |GRO5|    |
+    +----+----+----+----+----+----+----+----+----+----+
+  09|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  10|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  11|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  12|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  13|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  14|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 7
+Turn 8 complete. Robots remaining: 5
+Completed turn 7
+Robots remaining: 5
+Starting turn 8
+
+=== Starting Turn 8 ===
+Robots count: 5
+GRO1_Kidd is thinking...
+GRO1_Kidd is scanning the battlefield at range of 1...
+GRO1_Kidd did not spot any robots nearby
+GRO1_Kidd could not find a target to fire at
+GRO1_Kidd moves to (0,5)
+GRO1_Kidd: lives=3, shells=7, alive=true
+GR02_Jet is thinking...
+GR02_Jet is scanning the battlefield at range of 1...
+GR02_Jet did not spot any robots nearby
+GR02_Jet moves to (1,1)
+GR02_Jet could not find a target to fire at
+GR02_Jet: lives=3, shells=10, alive=true
+GRO3_Alpha is thinking...
+GRO3_Alpha is scanning the battlefield at range of 1...
+- Spotted robotGR0O4_Betaat (5,3)
+GRO3_Alpha fires at GR0O4_Beta!
+- Missed!
+GRO3_Alpha moves to (6,3)
+GRO3_Alpha: lives=3, shells=9, alive=true
+GR0O4_Beta is thinking...
+GR0O4_Beta is scanning the battlefield at range of 1...
+GR0O4_Beta did not spot any robots nearby
+GR0O4_Beta moves to (4,3)
+GR0O4_Beta could not find a target to fire at
+GR0O4_Beta: lives=1, shells=10, alive=true
+GRO5_Star is thinking...
+GRO5_Star is scanning the battlefield at range of 1...
+GRO5_Star did not spot any robots nearby
+GRO5_Star moves to (8,7)
+GRO5_Star could not find a target to fire at
+GRO5_Star: lives=3, shells=10, alive=true
+Display Battlefield
+      00   01   02   03   04   05   06   07   08   09
+    +----+----+----+----+----+----+----+----+----+----+
+  00|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  01|    |GR02|    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  02|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  03|    |    |    |    |GR0O|    |GRO3|    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  04|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  05|GRO1|    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  06|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  07|    |    |    |    |    |    |    |    |GRO5|    |
+    +----+----+----+----+----+----+----+----+----+----+
+  08|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  09|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  10|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  11|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  12|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  13|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  14|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 8
+Turn 9 complete. Robots remaining: 5
+Completed turn 8
+Robots remaining: 5
+Starting turn 9
+
+=== Starting Turn 9 ===
+Robots count: 5
+GRO1_Kidd is thinking...
+GRO1_Kidd is scanning the battlefield at range of 1...
+GRO1_Kidd did not spot any robots nearby
+GRO1_Kidd could not find a target to fire at
+GRO1_Kidd moves to (1,5)
+GRO1_Kidd: lives=3, shells=7, alive=true
+GR02_Jet is thinking...
+GR02_Jet is scanning the battlefield at range of 1...
+GR02_Jet did not spot any robots nearby
+GR02_Jet moves to (0,2)
+GR02_Jet could not find a target to fire at
+GR02_Jet: lives=3, shells=10, alive=true
+GRO3_Alpha is thinking...
+GRO3_Alpha is scanning the battlefield at range of 1...
+GRO3_Alpha did not spot any robots nearby
+GRO3_Alpha moves to (7,4)
+GRO3_Alpha could not find a target to fire at
+GRO3_Alpha: lives=3, shells=9, alive=true
+GR0O4_Beta is thinking...
+GR0O4_Beta is scanning the battlefield at range of 1...
+GR0O4_Beta did not spot any robots nearby
+GR0O4_Beta could not find a target to fire at
+GR0O4_Beta moves to (3,3)
+GR0O4_Beta: lives=1, shells=10, alive=true
+GRO5_Star is thinking...
+GRO5_Star is scanning the battlefield at range of 1...
+GRO5_Star did not spot any robots nearby
+GRO5_Star moves to (7,8)
+GRO5_Star could not find a target to fire at
+GRO5_Star: lives=3, shells=10, alive=true
+Display Battlefield
+      00   01   02   03   04   05   06   07   08   09
+    +----+----+----+----+----+----+----+----+----+----+
+  00|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  01|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  02|GR02|    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  03|    |    |    |GR0O|    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  04|    |    |    |    |    |    |    |GRO3|    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  05|    |GRO1|    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  06|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  07|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  08|    |    |    |    |    |    |    |GRO5|    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  09|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  10|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  11|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  12|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  13|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  14|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 9
+Turn 10 complete. Robots remaining: 5
+Completed turn 9
+Robots remaining: 5
+Starting turn 10
+
+=== Starting Turn 10 ===
+Robots count: 5
+GRO1_Kidd is thinking...
+GRO1_Kidd is scanning the battlefield at range of 1...
+GRO1_Kidd did not spot any robots nearby
+GRO1_Kidd moves to (2,5)
+GRO1_Kidd could not find a target to fire at
+GRO1_Kidd: lives=3, shells=7, alive=true
+GR02_Jet is thinking...
+GR02_Jet is scanning the battlefield at range of 1...
+GR02_Jet did not spot any robots nearby
+GR02_Jet could not find a target to fire at
+GR02_Jet moves to (0,1)
+GR02_Jet: lives=3, shells=10, alive=true
+GRO3_Alpha is thinking...
+GRO3_Alpha is scanning the battlefield at range of 1...
+GRO3_Alpha did not spot any robots nearby
+GRO3_Alpha moves to (6,5)
+GRO3_Alpha could not find a target to fire at
+GRO3_Alpha: lives=3, shells=9, alive=true
+GR0O4_Beta is thinking...
+GR0O4_Beta is scanning the battlefield at range of 1...
+GR0O4_Beta did not spot any robots nearby
+GR0O4_Beta could not find a target to fire at
+GR0O4_Beta moves to (2,3)
+GR0O4_Beta: lives=1, shells=10, alive=true
+GRO5_Star is thinking...
+GRO5_Star is scanning the battlefield at range of 1...
+GRO5_Star did not spot any robots nearby
+GRO5_Star moves to (6,7)
+GRO5_Star could not find a target to fire at
+GRO5_Star: lives=3, shells=10, alive=true
+Display Battlefield
+      00   01   02   03   04   05   06   07   08   09 
+    +----+----+----+----+----+----+----+----+----+----+
+  00|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  01|GR02|    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  02|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  03|    |    |GR0O|    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  04|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  05|    |    |GRO1|    |    |    |GRO3|    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  06|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  07|    |    |    |    |    |    |GRO5|    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  08|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  09|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  10|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  11|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  12|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  13|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+  14|    |    |    |    |    |    |    |    |    |    |
+    +----+----+----+----+----+----+----+----+----+----+
+Turn completed. CurrentTurn is now 10
+Turn 11 complete. Robots remaining: 5
+Completed turn 10
+Robots remaining: 5
+
+===== Battlefield Results =====
+Total turns played: 10
+Robots remaining: 5
+Game ended with 5 robots still alive
