@@ -50,9 +50,12 @@ void Battlefield::processRobotQueues() {
             robot->setLocation(newX, newY);
             waitingRobots_.push(robot);
             cout << robot->id() << " waiting to respawn..." << endl;
+            log(robot->id() + " waiting to respawn...");
         }    
         else {
             delete robot; // Clean up destroyed robots
+            cout << robot->id() << " permanently destroyed" << endl;
+            log(robot->id() + " permanently destroyed");
         }
     }
     // Process waiting robots to add back to active list
@@ -61,6 +64,7 @@ void Battlefield::processRobotQueues() {
         waitingRobots_.pop();
         robots_.push_back(robot);
         cout << robot->id() << " has respawned!" << endl;
+        log(robot->id() + " has respawned!");
     }
 }
 
@@ -70,6 +74,7 @@ bool Battlefield::readFile(const string& filename) {
 
     if (!file.is_open()) {
         cout << "Error opening file: " << filename << endl;
+        log("Error opening file: " + filename);
         return false;
     }
 
@@ -81,14 +86,20 @@ bool Battlefield::readFile(const string& filename) {
             istringstream iss(line.substr(7));
             iss >> battlefieldCols_ >> battlefieldRows_;
             battlefield_.resize(battlefieldRows_, vector<string>(battlefieldCols_, "."));
+            cout << "Battlefield dimensens set to: " << battlefieldCols_ << "x" << battlefieldRows_ << endl;
+            log("Battlefield dimensens set to: " + to_string(battlefieldCols_) + "x" + to_string(battlefieldRows_));
         }
         // Parse total turns
         else if (line.find("turns:") != string::npos) {
             maxTurns_ = stoi(line.substr(6));
+            cout << "Total turns set to: " << maxTurns_ << endl;
+            log("Total turns set to: " + to_string(maxTurns_));
         }
         // Parse robot count
         else if (line.find("robots:") != string::npos) {
             robotCount_ = stoi(line.substr(7));
+            cout << "Robot count set to: " << maxTurns_ << endl;
+            log("Robot count set to: " + to_string(robotCount_));
         }
         // Prase robot specifications
         else if (line.find("GenericRobot") != string::npos) {
@@ -117,6 +128,8 @@ bool Battlefield::readFile(const string& filename) {
             Robot* robot = new GenericRobot(id_, x, y);
             robot->setRobotName(id_.substr(id_.find("_") + 1));
             robots_.push_back(robot);
+            cout << "Created robot: " << id_ << " at (" << x << "," << y << ")" << endl;
+            log("created robot: " + id_ + " at (" + to_string(x) + "," + to_string(y) + ")");
         }
     }
     placeRobots();
@@ -137,6 +150,7 @@ void Battlefield::placeRobots() {
         }
         else {
             cout << "Error message: Invalid location for the robot" << robots_[i]->id() << endl;
+            log("Error message: Invalid location for the robot " + robots_[i]->id());
             exit(1);
         }
     }
@@ -145,44 +159,61 @@ void Battlefield::placeRobots() {
 // Display the battlefield in the screen
 void Battlefield::displayBattlefield() const {
     ostringstream oss;
+
     cout << "Display Battlefield" << endl << "    ";
+    oss << "Display Battlefield" << endl << "    ";
 
     // Column headers
     for (int j = 0; j < battlefield_[0].size(); ++j) {
         cout << "  " << right << setfill('0') << setw(2) << j << " ";
+        oss << "  " << right << setfill('0') << setw(2) << j << " ";
     }
     cout << endl;
+    oss << endl;
 
     // Battlefield grid
     for (int i = 0; i < battlefield_.size(); ++i) {
         // Top border
         cout << "    ";
+        oss << "    ";
 
         for (int j = 0; j < battlefield_[i].size(); ++j) {
             cout << "+----";
+            oss << "+----";
         }
         cout << "+" << endl;
+        oss << "+" << endl;
 
         // Row content
         cout << "  " << right << setfill('0') << setw(2) << i;
+        oss << "  " << right << setfill('0') << setw(2) << i;
 
         for (int j = 0; j < battlefield_[0].size(); ++j) {
             if (battlefield_[i][j] == "") {
                 cout << "|" << "    ";
+                oss << "|" << "    ";
             }
             else {
                 cout << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
+                oss << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
             }
         }
         cout << "|" << endl;
+        oss << "|" << endl;
     }
     // Bottom border
     cout << "    ";
+    oss << "    ";
 
     for (int j = 0; j < battlefield_[0].size(); ++j) {
         cout << "+----";
+        oss << "+----";
     }
     cout << "+" << endl;
+    oss << "+" << endl;
+
+    // Log all at once
+    log(oss.str());
 }
 
 // Run one turn of the simulation
@@ -191,8 +222,8 @@ void Battlefield::runTurn() {
         return;
     }
 
-    ostringstream oss;
     cout << "\n=== Turn " << currentTurn_ + 1 << " ===" << endl;
+    log("\n=== Turn " + to_string(currentTurn_ + 1) + " ===");
 
     /*
     cout << oss.str();
@@ -208,6 +239,7 @@ void Battlefield::runTurn() {
 
         if (robot->isAlive()) {
             cout << robot->id() << " actions:" << endl;
+            log(robot->id() + " actions:");
             robot->actions(this);
             i++;
         }

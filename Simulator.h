@@ -13,7 +13,7 @@ private:
     Battlefield battlefield_; // For the game world
 
     int maxTurns_ = battlefield_.getTotalTurns();
-
+    
     string inputFile_; // To input file
     string outputfile_; // To output log file 
     bool initialized_ = false; // Track initialization status
@@ -37,6 +37,10 @@ public:
 
     // To create output file
     void setOutputFile(const string& filename);
+
+    void log(const string& msg) const {
+        battlefield_.log(msg);
+    }
 
     bool isInitialized() const {
         return initialized_;

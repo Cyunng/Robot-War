@@ -34,7 +34,7 @@ private:
     vector<vector<string>> battlefield_;
 
     // File output
-    ofstream logFile_;
+    mutable ofstream logFile_;
     string logFileName_;
 
     // Process destroyed and waiting robots queues
@@ -90,11 +90,17 @@ public:
 
     bool openLogFile(const string& filename);
 
+    void closeLogFile() {
+        if (logFile_.is_open()) {
+            logFile_.close();
+        }
+    }
+
     bool isLogging() const {
         return logFile_.is_open();
     }
 
-    void log(const string& msg) {
+    void log(const string& msg) const {
         cout << msg << endl;
 
         if (logFile_.is_open()) {
