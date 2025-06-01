@@ -1,5 +1,5 @@
 /**********|**********|**********|
-Program: TC3L_GJ_main.cpp / BattleField.h / BattleField.cpp / GenericRobot.h / GenericRobot.cpp / Robot.h / Robot.cpp / RobotType.h / RobotType.cpp / Simulator.h / Simulator.cpp
+Program: TC12L_GJ_main.cpp / BattleField.h / BattleField.cpp / GenericRobot.h / GenericRobot.cpp / Robot.h / Robot.cpp / RobotType.h / RobotType.cpp / Simulator.h / Simulator.cpp
 Course: Object-Oriented Programming and Data Structures (OOPDS)
 Trimester: 2420
 Name1: Ng Chi Yuan
