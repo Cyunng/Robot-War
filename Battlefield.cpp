@@ -248,8 +248,6 @@ void Battlefield::runTurn() {
         }
     }
 
-    cout << "Finished all robot actions for turn " << currentTurn_ + 1 << endl; // DEBUG
-
     // Remove dead robots
     for (int i = 0; i < robots_.size(); ) {
         if (!robots_[i]->isAlive()) {
@@ -362,7 +360,19 @@ Robot* Battlefield::getRandomEnemy(Robot* self) const {
 void Battlefield::replaceRobot(Robot* oldRobot, Robot* newRobot) {
     auto it = find(robots_.begin(), robots_.end(), oldRobot);
     if (it != robots_.end()) {
+        // Preserve position
+        newRobot->setLocation(oldRobot->x(), oldRobot->y());
+
+        // Replace in vector
         *it = newRobot;
+
+        // Update battlefield display
+        battlefield_[newRobot->y()][newRobot->x()] = newRobot->id().substr(0, 4);
+
+        // Clean up old robot
         delete oldRobot;
+
+        cout << "Replaced robot " << oldRobot->id() << " with " << newRobot->id() << endl;
+        log("Replaced robot " + oldRobot->id() + " with " + newRobot->id());
     }
 }
