@@ -1,0 +1,41 @@
+===== Battlefield Started  =====
+Display Battlefield
+      00   01   02   03   04 
+    +----+----+----+----+----+
+  00|    |    |    |    |    |
+    +----+----+----+----+----+
+  01|    |    |    |    |    |
+    +----+----+----+----+----+
+  02|    |GRO1|    |    |    |
+    +----+----+----+----+----+
+  03|    |    |    |    |    |
+    +----+----+----+----+----+
+  04|    |    |    |    |    |
+    +----+----+----+----+----+
+  05|    |    |    |    |    |
+    +----+----+----+----+----+
+  06|    |    |    |    |    |
+    +----+----+----+----+----+
+  07|    |    |    |    |    |
+    +----+----+----+----+----+
+  08|    |    |    |    |GR02|
+    +----+----+----+----+----+
+  09|    |    |GRO3|    |    |
+    +----+----+----+----+----+
+
+
+=== Turn 1 ===
+GRO1_Burn actions:
+GRO1_Burn is thinking...
+GRO1_Burn is scanning the battlefield at range of 1...
+GRO1_Burn could not find a target to fire at
+GRO1_Burn moves to (2,1)
+GR02_Nerd actions:
+GR02_Nerd is thinking...
+GR02_Nerd is scanning the battlefield at range of 1...
+GR02_Nerd could not find a target to fire at
+GR02_Nerd moves to (3,9)
+GRO3_Right actions:
+GRO3_Right is thinking...
+GRO3_Right is scanning the battlefield at range of 1...
+GRO3_Right moves to (1,8)

@@ -101,8 +101,6 @@ public:
     }
 
     void log(const string& msg) const {
-        cout << msg << endl;
-
         if (logFile_.is_open()) {
             logFile_ << msg << endl;
             logFile_.flush();

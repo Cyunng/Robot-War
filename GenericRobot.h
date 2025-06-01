@@ -12,6 +12,8 @@ using namespace std;
 
 class GenericRobot : public ThinkingRobot, public SeeingRobot, public ShootingRobot, public MovingRobot {
 private:
+    Battlefield battlefield_;
+    
     // Static member for auto-incrementing ID
     static int robotAutoIncrementInt_;
 
@@ -43,7 +45,11 @@ public:
     virtual void actions(Battlefield* battlefield);
 
     // Upgrade System
-    virtual Robot* upgrade();
+    virtual Robot* upgrade() override {
+        return nullptr; // Default implementation, should be overridden
+    }
+
+    Robot* upgrade(Battlefield* battlefield);
 
     // Special Ability Accessors
     int getTrackersLeft() const {

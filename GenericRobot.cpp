@@ -39,7 +39,7 @@ void GenericRobot::actionThink(Battlefield* battlefield) {
 
 void GenericRobot::actionLook(Battlefield* battlefield) {
     cout << id_ << " is scanning the battlefield at range of " << lookRange_ << "..." << endl;
-   battlefield->log(id_ + " is scanning the battlefield at range of " + to_string(lookRange_) + "...");
+    battlefield->log(id_ + " is scanning the battlefield at range of " + to_string(lookRange_) + "...");
 
     for (int dx = -1; dx <= 1; dx++) {
 
@@ -54,6 +54,7 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
 
             if (battlefield->hasRobotAt(checkX, checkY)) {
                 cout << "- Spotted robot at (" << checkX << "," << checkY << ")" << endl;
+                battlefield->log("- Spotted robot at (" + to_string(checkX) + "," + to_string(checkY) + ")");
             }
         }
     }
@@ -61,13 +62,9 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
 
 void GenericRobot::actionFire(Battlefield* battlefield) {
     if (shells_ <= 0) {
-        string msg = id_ + " has no ammo left and self-destructs!";
-        cout << msg << endl;
-        
-        if (battlefield->isLogging()) {
-            battlefield->log(msg);
-        }
-        reduceLife(); // Kill the robot
+        cout << id_ << " has no ammo left and self-destructs!" << endl;
+        battlefield->log(id_ + " has no ammo left and self-destructs!");
+        reduceLife();
         return;
     }
 
@@ -99,28 +96,33 @@ void GenericRobot::actionFire(Battlefield* battlefield) {
 
         Robot* targetRobot = battlefield->getRobotAt(targetX, targetY);
         cout << id_ << " fires at " << targetRobot->id();
+        battlefield->log(id_ + " fires at " + targetRobot->id() + ")");
 
         // Check if target is hidden
         if (targetRobot->isHidden()) {
             cout << " but it is hidden!" << endl;
+            battlefield->log(" but it is hidden!");
             shells_--;
             return;
         }
 
         cout << "!" << endl;
+        battlefield->log("!");
         shells_--;
 
         if (rand() % 100 < 70) { // 70% hit chance
             targetRobot->reduceLife();
             cout << "- Hit! " << targetRobot->id() << " now has " << targetRobot->numOfLives() << " lives left" << endl;
+            battlefield->log("- Hit" + targetRobot->id() + " now has " + to_string(targetRobot->numOfLives()) + " lives left");
 
             if (!targetRobot->isAlive()) {
                 numOfKills_++;
                 cout << "- " << targetRobot->id() << " destroyed!" << endl;
+                battlefield->log("- " + targetRobot->id() + " destroyed!");
 
                 //Check for upgrade after kill
                 if (canUpgrade()) {
-                    Robot* upgraded = upgrade();
+                    Robot* upgraded = upgrade(battlefield);
 
                     if (upgraded) {
                         battlefield->replaceRobot(this, upgraded);
@@ -131,10 +133,13 @@ void GenericRobot::actionFire(Battlefield* battlefield) {
         }
         else {
             cout << "- Missed!" << endl;
+            battlefield->log("- Missed!");
         }
     }
     else {
         cout << id_ << " could not find a target to fire at" << endl;
+        battlefield->log(id_ + " could not find a target to fire at");
+
     }
 }
 
@@ -161,45 +166,49 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
 
         setLocation(newX, newY);
         cout << id_ << " moves to (" << newX << "," << newY << ")" << endl;
+        battlefield->log(id_ + " moves to (" + to_string(newX) + "," + to_string(newY) + ")");
     }
     else {
         cout << id_ << " could not find a valid move" << endl;
+        battlefield->log(id_ + " could not find a valid move");
     }
 }
 
 void GenericRobot::actions(Battlefield* battlefield) {
+    cout << id_ << ": actions() START" << endl; // DEBUG
+
     if (!isAlive()) {
         return;
     }
 
-    int randomActionThink = rand() % 2; //Randmoize action order to be 50% chance
+    int randomActionThink = rand() % 2;
 
     if (randomActionThink == 0) {
-        // Order 1: Think -> Look -> Fire -> Move
         actionThink(battlefield);
         actionLook(battlefield);
         actionFire(battlefield);
         actionMove(battlefield);
     }
     else {
-        // Order 2: Think -> Look -> Move -> Fire
         actionThink(battlefield);
         actionLook(battlefield);
         actionMove(battlefield);
         actionFire(battlefield);
     }
 
-    // Check for upgrades after actions
     if (numOfKills_ > usedUpgrades_.size() && canUpgrade()) {
-        Robot* upgraded = upgrade();
+        Robot* upgraded = upgrade(battlefield);
         if (upgraded) {
             battlefield->replaceRobot(this, upgraded);
         }
     }
+    cout << id_ << ": lives=" << numOfLives_ << ", shells=" << shells_ << ", alive=" << (isAlive() ? "true" : "false") << endl;
+
+    cout << id_ << ": actions() END" << endl; // DEBUG
 }
 
 // Upgrade System
-Robot* GenericRobot::upgrade() {
+Robot* GenericRobot::upgrade(Battlefield* battlefield) {
     if (!canUpgrade() || numOfKills_ <= usedUpgrades_.size()) {
         return nullptr;
     }
@@ -211,8 +220,11 @@ Robot* GenericRobot::upgrade() {
     }
 
     cout << id_ << " can upgrade! Available options: ";
+    battlefield->log(id_ + " can upgrade! Available options: ");
+
     for (const auto& upgrade : availableUpgrades_) {
         cout << upgrade << " ";
+        battlefield->log(upgrade + " ");
     }
     cout << endl;
 
@@ -259,6 +271,7 @@ Robot* GenericRobot::upgrade() {
         upgraded->setNumOfKills(numOfKills_);
         upgraded->setShells(shells_);
         cout << id_ << " upgraded to " << upgradeType << "!" << endl;
+        battlefield->log(id_ + " upgraded to " + upgradeType + "!");
     }
 
     return upgraded;
