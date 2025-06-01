@@ -18,6 +18,7 @@ void HideBot::actionThink(Battlefield* battlefield) {
         setHidden(true, 3);
         hideCharges_--;
         cout << id() << " is now hidden for 3 turns! (" << hideCharges_ << " charges left)" << endl;
+        battlefield->log(id() + " is now hidden for 3 turns! (" + to_string(hideCharges_) + " charges left)");
     }
 }
 
@@ -45,7 +46,8 @@ void JumpBot::actionMove(Battlefield* battlefield) {
 
         setLocation(newX, newY);
         jumpCharges_--;
-        cout << id() << " jumped to (" << newX << ", " << newY << ") (" <<jumpCharges_ << " jumps left)" << endl;
+        cout << id() << " jumped to (" << newX << ", " << newY << ") (" << jumpCharges_ << " jumps left)" << endl;
+        battlefield->log(id() + " jumped to (" + to_string(newX) + ", " + to_string(newY) + ") (" + to_string(jumpCharges_) + " jumps left)");
     }
     else {
         GenericRobot::actionMove(battlefield);
@@ -74,6 +76,7 @@ void TeleportBot::actionMove(Battlefield* battlefield) {
         setLocation(newX, newY);
         teleportCharges_--;
         cout << id() << " teleported to (" << newX << ", " << newY << ") (" << teleportCharges_ << " teleports left)" << endl;
+        battlefield->log(id() + " teleported to (" + to_string(newX) + ", " + to_string(newY) + ") (" + to_string(teleportCharges_) + " teleports left)");
     }
     else {
         GenericRobot::actionMove(battlefield);
@@ -92,11 +95,6 @@ LongShotBot::LongShotBot(string id, int x, int y) : GenericRobot(id, x, y) {
 }
 
 void LongShotBot::actionFire(Battlefield* battlefield) {
-    if (getShells() <= 0) {
-        cout << id() << " has no ammo left and self-destructs!" << endl;
-        reduceLife();
-        return;
-    }
 
     // Find target within range
     for (int dx = -fireRange_; dx <= fireRange_; dx++) {
@@ -109,6 +107,7 @@ void LongShotBot::actionFire(Battlefield* battlefield) {
                 
                 if (battlefield->hasRobotAt(targetX, targetY)) {
                     cout << id() << " fires long shot at (" << targetX << ", " << targetY << ")!" << endl;
+                    battlefield->log(id() + " fires long shot at (" + to_string(targetX) + ", " + to_string(targetY) + ")!");
 
                     setShells(getShells() - 1);
                     return;
@@ -117,6 +116,7 @@ void LongShotBot::actionFire(Battlefield* battlefield) {
         }
     }
     cout << id() << " could not find target in range" << endl;
+    battlefield->log(id() + " could not find target in range");
 
 }
 
@@ -127,7 +127,6 @@ Robot* LongShotBot::upgrade() {
 /////// SemiAutoBot ///////
 SemiAutoBot::SemiAutoBot(string id, int x, int y) : GenericRobot(id, x, y) {
     setRobotType("SemiAutoBot");
-    cout << id << " upgraded to SemiAutoBot!" << endl;
 }
 
 void SemiAutoBot::actionFire(Battlefield* battlefield) {
@@ -137,10 +136,13 @@ void SemiAutoBot::actionFire(Battlefield* battlefield) {
         
         if (battlefield->hasRobotAt(targetX, targetY)) {
             cout << id() << " fires 3-shot burst at (" << targetX << ", " << targetY << ")!" << endl;
+            battlefield->log(id() + " fires 3-shot burst at (" + to_string(targetX) + ", " + to_string(targetY) + ")!");
+
             shells_ -= burstSize_;
         }
         else {
             cout << id() << " fires burst but misses!" << endl;
+            battlefield->log(id() + " fires burst but misses!");
             shells_ -= burstSize_;
         }
     }
@@ -153,7 +155,7 @@ Robot* SemiAutoBot::upgrade() {
     return nullptr;
 }
 
-/////// ThirtyShortBot///////
+/////// ThirtyShotBot///////
 ThirtyShotBot::ThirtyShotBot(string id, int x, int y) : GenericRobot(id, x, y) {
     setRobotType("ThirtyShotBot");
     setShells(30); // Reset to 30 shells
@@ -173,13 +175,15 @@ void ShieldBot::actionThink(Battlefield* battlefield) {
         shieldActive_ = true;
         shieldCharges_--;
         cout << id() << " activated energy shield (" << shieldCharges_ << " charges left)" << endl;
+        battlefield->log(id() + " activated energy shield (" + to_string(shieldCharges_) + " charges left)");
     }
 }
 
-void ShieldBot::reduceLife() {
+void ShieldBot::reduceLife(Battlefield* battlefield) {
     if (shieldActive_) {
         shieldActive_ = false;
         cout << id() << "'s shield blocked the attack! (" << shieldCharges_ << " charges remain)" << endl;
+        battlefield->log(id() + "'s shield blocked the attack! (" + to_string(shieldCharges_) + " charges remain)");
     }
     else {
         GenericRobot::reduceLife(); // Normal damage
@@ -200,6 +204,7 @@ ScoutBot::ScoutBot(string id, int x, int y) : GenericRobot(id, x, y) {
 void ScoutBot::actionLook(Battlefield* battlefield) {
     if (scoutCharges_ > 0) {
         cout << id() << " is scouting the entire battlefield!" << endl;
+        battlefield->log(id() + " is scouting the entire battlefield!");
         battlefield->displayBattlefield();
         scoutCharges_--;
     }
@@ -225,15 +230,18 @@ void TrackBot::actionLook(Battlefield* battlefield) {
             trackedRobots_[target->id()] = make_pair(target->x(), target->y());
             trackersLeft_--;
             cout << id() << " is now tracking " << target->id() << " (" << trackersLeft_ << " trackers left)" << endl;
+            battlefield->log(id() + " is now tracking " + target->id() + " (" + to_string(trackersLeft_) + " trackers left)");
         }
     }
     
     // Display tracked robots
     if (!trackedRobots_.empty()) {
         cout << "Tracked robots:" << endl;
+        battlefield->log("Tracked robots:");
 
         for (auto& entry : trackedRobots_) {
             cout << entry.first << " at (" << entry.second.first << ", " << entry.second.second << ")" << endl;
+            battlefield->log(entry.first + " at (" + to_string(entry.second.first) + ", " + to_string(entry.second.second) + ")"); 
         }
     }
     else {
@@ -247,12 +255,13 @@ Robot* TrackBot::upgrade() {
 
 /////// RadarBot ///////
 RadarBot::RadarBot(string id, int x, int y) : GenericRobot(id, x, y) {
-    setRobotType("RdarBot");
+    setRobotType("RadarBot");
 }
 
 void RadarBot::actionLook(Battlefield* battlefield) {
     if (radarCharges_ > 0) {
         cout << id() << " activates radar! (range " << radarRange_ << ")" << endl;
+        battlefield->log(id() + " activates radar! (range " + to_string(radarRange_) + ")");
         
         // Reveal robots in radar range
         for (int dx = -radarRange_; dx <= radarRange_; dx++) {
@@ -266,6 +275,7 @@ void RadarBot::actionLook(Battlefield* battlefield) {
                     if (battlefield-> hasRobotAt(checkX, checkY)) {
                         Robot* spotted = battlefield->getRobotAt(checkX, checkY);
                         cout << " - Spotted " << spotted->id() << " at (" << checkX << "," << checkY << ")" << endl;
+                        battlefield->log(" - Spotted " + spotted->id() + " at (" + to_string(checkX) + "," + to_string(checkY) + ")");
                     }
                 }
             }

@@ -1,0 +1,6 @@
+M by N: 5 10
+turns: 7
+robots: 3
+GenericRobot GRO1_Burn 1 2
+GenericRobot GR02_Nerd 4 8
+GenericRobot GRO3_Right 2 9

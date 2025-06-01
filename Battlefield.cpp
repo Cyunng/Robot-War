@@ -20,6 +20,8 @@ Battlefield::~Battlefield() {
     for (Robot* robot : robots_) {
         delete robot;
     }
+    robots_.clear();
+
     while (!destroyedRobots_.empty()) {
         delete destroyedRobots_.front();
         destroyedRobots_.pop();
@@ -53,9 +55,10 @@ void Battlefield::processRobotQueues() {
             log(robot->id() + " waiting to respawn...");
         }    
         else {
+            string robotId = robot->id();
             delete robot; // Clean up destroyed robots
-            cout << robot->id() << " permanently destroyed" << endl;
-            log(robot->id() + " permanently destroyed");
+            cout << robotId << " permanently destroyed" << endl;
+            log(robotId + " permanently destroyed");
         }
     }
     // Process waiting robots to add back to active list
@@ -98,7 +101,7 @@ bool Battlefield::readFile(const string& filename) {
         // Parse robot count
         else if (line.find("robots:") != string::npos) {
             robotCount_ = stoi(line.substr(7));
-            cout << "Robot count set to: " << maxTurns_ << endl;
+            cout << "Robot count set to: " << robotCount_ << endl;
             log("Robot count set to: " + to_string(robotCount_));
         }
         // Prase robot specifications
@@ -225,27 +228,24 @@ void Battlefield::runTurn() {
     cout << "\n=== Turn " << currentTurn_ + 1 << " ===" << endl;
     log("\n=== Turn " + to_string(currentTurn_ + 1) + " ===");
 
-    /*
-    cout << oss.str();
+    vector<Robot*> activeRobots = robots_;
 
-    if (logFile_.is_open()) {
-        logFile_ << oss.str();
-    }
-        */
-
-    // Process each robot's actions
-    for (int i = 0; i < robots_.size(); ) {
-        Robot* robot = robots_[i];
-
+    for (Robot* robot : activeRobots) {
         if (robot->isAlive()) {
-            cout << robot->id() << " actions:" << endl;
             log(robot->id() + " actions:");
             robot->actions(this);
-            i++;
         }
-        else {
-            destroyedRobots_.push(robot);
+    }
+
+    cout << "Finished all robot actions for turn " << currentTurn_ + 1 << endl; // DEBUG
+
+    // Remove dead robots
+    for (int i = 0; i < robots_.size(); ) {
+        if (!robots_[i]->isAlive()) {
+            destroyedRobots_.push(robots_[i]);
             robots_.erase(robots_.begin() + i);
+        } else {
+            ++i;
         }
     }
 
@@ -257,6 +257,9 @@ void Battlefield::runTurn() {
     displayBattlefield();
 
     currentTurn_++;
+    cout << "Turn completed. CurrentTurn is now " << currentTurn_ << endl;
+    cout << "Turn " << currentTurn_ + 1 << " complete. Robots remaining: " << robots_.size() << endl;
+
 }
 
 void Battlefield::setLogFile(const string& filename) {

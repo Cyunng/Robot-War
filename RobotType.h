@@ -83,7 +83,7 @@ public:
     Robot* upgrade();
 };
 
-/////// ThirtyShortBot///////
+/////// ThirtyShotBot///////
 class ThirtyShotBot : public GenericRobot {
 public:
     ThirtyShotBot(string id = "", int x = -1, int y = -1);
@@ -102,7 +102,7 @@ public:
 
     void actionThink(Battlefield* battlefield);
 
-    void reduceLife();
+    void reduceLife(Battlefield* battlefield);
 
     Robot* upgrade();
 };
