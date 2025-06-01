@@ -35,12 +35,10 @@ private:
 
     // File output
     ofstream logFile_;
+    string logFileName_;
 
     // Process destroyed and waiting robots queues
     void processRobotQueues();
-
-    // Output battlefield to file
-    void logBattlefield();
 
 public:
     // Constructor & Destructor
@@ -68,6 +66,10 @@ public:
     int getRobotCount() const {
         return robots_.size();
     }
+
+    const vector<Robot*>& getRobots() const {
+        return robots_;
+    }
     
     // Read input file to initialize battlefield and robots
     bool readFile(const string& filename);
@@ -82,7 +84,24 @@ public:
     void runTurn();
 
     // Log File
+
+    // Output battlefield to file
     void setLogFile(const string& filename);
+
+    bool openLogFile(const string& filename);
+
+    bool isLogging() const {
+        return logFile_.is_open();
+    }
+
+    void log(const string& msg) {
+        cout << msg << endl;
+
+        if (logFile_.is_open()) {
+            logFile_ << msg << endl;
+            logFile_.flush();
+        }
+    }
 
     // Helper methods
     bool isPositionEmpty(int robotPositionX, int robotPositionY) const;

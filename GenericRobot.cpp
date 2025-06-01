@@ -34,10 +34,12 @@ void GenericRobot::setLocation(int x, int y) {
 // Action implementations
 void GenericRobot::actionThink(Battlefield* battlefield) {
     cout << id_ << " is thinking..." << endl;
+    battlefield->log(id_ + " is thinking...");
 }
 
 void GenericRobot::actionLook(Battlefield* battlefield) {
     cout << id_ << " is scanning the battlefield at range of " << lookRange_ << "..." << endl;
+   battlefield->log(id_ + " is scanning the battlefield at range of " + to_string(lookRange_) + "...");
 
     for (int dx = -1; dx <= 1; dx++) {
 
@@ -59,7 +61,12 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
 
 void GenericRobot::actionFire(Battlefield* battlefield) {
     if (shells_ <= 0) {
-        cout << id_ << " has no ammo left and self-destructs!" << endl;
+        string msg = id_ + " has no ammo left and self-destructs!";
+        cout << msg << endl;
+        
+        if (battlefield->isLogging()) {
+            battlefield->log(msg);
+        }
         reduceLife(); // Kill the robot
         return;
     }
@@ -183,7 +190,7 @@ void GenericRobot::actions(Battlefield* battlefield) {
     }
 
     // Check for upgrades after actions
-    if (numOfKills_ > 0 && numOfKills_ % 1 == 0 && canUpgrade()) {
+    if (numOfKills_ > usedUpgrades_.size() && canUpgrade()) {
         Robot* upgraded = upgrade();
         if (upgraded) {
             battlefield->replaceRobot(this, upgraded);

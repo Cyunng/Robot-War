@@ -5,6 +5,16 @@
 
 using namespace std;
 
+int Simulator::remainingRobots() const {
+    int count = 0;
+    for (Robot* r : battlefield_.getRobots()) {
+        if (r->isAlive()) {
+            count++;
+        }
+    }
+    return count;
+}
+
 void Simulator::displayResults() const {
     ofstream fileStream;
     bool useFile = false;
@@ -19,26 +29,30 @@ void Simulator::displayResults() const {
         }
     }
 
-    ostream& out = useFile ? fileStream : cout;
+    ostringstream oss;
 
-    out << "\n===== Battlefield Results =====" << endl;
-    out << "Total turns played: " << battlefield_.getCurrentTurn() << endl;
-    out << "Robots remaining" << battlefield_.getRobotCount() << endl;
+    cout << "\n===== Battlefield Results =====" << endl;
+    cout << "Total turns played: " << battlefield_.getCurrentTurn() << endl;
+    cout << "Robots remaining" << battlefield_.getRobotCount() << endl;
 
     if (battlefield_.getRobotCount() == 1) { // If theres still robot
         Robot* winner = battlefield_.getRobotAt(0, 0); // Find actual winner
-        out << "Winner: " << winner->id() << " (" << winner->robotType() << ")" << endl;
+        cout << "Winner: " << winner->id() << " (" << winner->robotType() << ")" << endl;
     }
     else if (battlefield_.getRobotCount() == 0) { // If theres no robot
-        out << "All robots destroyed!" << endl;
+        cout << "All robots destroyed!" << endl;
     }
     else {
-        out << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
+        cout << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
     }
     
-    if (fileStream.is_open()){
+    /*
+    cout << oss.str();
+    if (useFile) {
+        fileStream << oss.str();
         fileStream.close();
     }
+    */
 }
 
 bool Simulator::initialize(const string& inputFile) {
@@ -54,6 +68,31 @@ bool Simulator::initialize(const string& inputFile) {
 
 // To run the complete simulation
 void Simulator::run() {
+/*
+    ofstream fileOut("fileOutput1.txt");
+
+    for (int t = 1; t <= maxTurns_; ++t) {
+        cout << "=== Turn " << t << " ===" << endl;
+        fileOut << "=== Turn " << t << " ===" << endl;
+
+        for (Robot* r : battlefield_.getRobots()) {
+            if (r->isAlive()) {
+                r->actions(&battlefield_, cout, fileOut);
+            }
+        }
+
+        battlefield_.placeRobots();
+        battlefield_.displayBattlefield(cout);
+        battlefield_.displayBattlefield(fileOut);
+
+        if (remainingRobots() <= 1) {
+            break;
+        }
+
+        fileOut.close();
+    }
+    */
+    /*
     if (!initialized_) {
         cout << "Error: Simulation is not initialized" << endl;
         return;
@@ -64,7 +103,17 @@ void Simulator::run() {
     }
 
     cout << "===== Battlefield Started  =====" << endl;
+    
+    if (logFile_.is_open()) {
+        logFile_ << "===== Battlefield Started  =====" << endl;
+    }
+
     cout << "Initial battlefield state:" << endl;
+
+    if (logFile_.is_open()) {
+        logFile_ << "Initial battlefield state:" << endl;
+    }
+
     battlefield_.displayBattlefield();
 
     while (battlefield_.getCurrentTurn() < battlefield_.getTotalTurns() && battlefield_.getRobotCount() > 1) {
@@ -72,9 +121,11 @@ void Simulator::run() {
     }
 
     displayResults();
+    */
 }
 
 // To create output file
 void Simulator::setOutputFile(const string& filename) {
     outputfile_ = filename;
+    cout << "Output file set to: " << outputfile_ << endl;
 }

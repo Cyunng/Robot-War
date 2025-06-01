@@ -115,7 +115,7 @@ bool Battlefield::readFile(const string& filename) {
             }
 
             Robot* robot = new GenericRobot(id_, x, y);
-            robot->setRobotName(id_.substr(id_.find("-") + 1));
+            robot->setRobotName(id_.substr(id_.find("_") + 1));
             robots_.push_back(robot);
         }
     }
@@ -133,7 +133,7 @@ void Battlefield::placeRobots() {
 
     for ( int i = 0; i < robots_.size(); ++i) {
         if (robots_[i]->y() >=0 && robots_[i]->y() < battlefield_.size() && robots_[i]->x() >=0 && robots_[i]->x() < battlefield_[0].size()) {
-            battlefield_[robots_[i]->y()][robots_[i]->x()] = robots_[i]->id();
+            battlefield_[robots_[i]->y()][robots_[i]->x()] = robots_[i]->id().substr(0, 4);
         }
         else {
             cout << "Error message: Invalid location for the robot" << robots_[i]->id() << endl;
@@ -144,6 +144,7 @@ void Battlefield::placeRobots() {
 
 // Display the battlefield in the screen
 void Battlefield::displayBattlefield() const {
+    ostringstream oss;
     cout << "Display Battlefield" << endl << "    ";
 
     // Column headers
@@ -182,50 +183,6 @@ void Battlefield::displayBattlefield() const {
         cout << "+----";
     }
     cout << "+" << endl;
-
-    // Log to file if open
-    if (logFile_.is_open()) {
-        ofstream logFile_;
-
-        logFile_ << "Display Battlefield" << endl << "    ";
-
-        // Column headers
-        for (int j = 0; j < battlefield_[0].size(); ++j) {
-            logFile_ << "  " << right << setfill('0') << setw(2) << j << " ";
-        }
-        logFile_ << endl;
-
-        // Battlefield grid
-        for (int i = 0; i < battlefield_.size(); ++i) {
-            // Top border
-            logFile_ << "    ";
-
-            for (int j = 0; j < battlefield_[i].size(); ++j) {
-                logFile_ << "+----";
-            }
-            logFile_ << "+" << endl;
-
-            // Row content
-            logFile_ << "  " << right << setfill('0') << setw(2) << i;
-
-            for (int j = 0; j < battlefield_[0].size(); ++j) {
-                if (battlefield_[i][j] == "") {
-                    logFile_ << "|" << "    ";
-                }
-                else {
-                    logFile_ << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
-                }
-            }
-            logFile_ << "|" << endl;
-        }
-        // Bottom border
-        logFile_ << "    ";
-
-        for (int j = 0; j < battlefield_[0].size(); ++j) {
-            logFile_ << "+----";
-        }
-        logFile_ << "+" << endl;
-    }
 }
 
 // Run one turn of the simulation
@@ -234,37 +191,68 @@ void Battlefield::runTurn() {
         return;
     }
 
+    ostringstream oss;
     cout << "\n=== Turn " << currentTurn_ + 1 << " ===" << endl;
 
-    stillAlive.clear();
+    /*
+    cout << oss.str();
+
+    if (logFile_.is_open()) {
+        logFile_ << oss.str();
+    }
+        */
 
     // Process each robot's actions
-    for (Robot* robot : robots_) {
+    for (int i = 0; i < robots_.size(); ) {
+        Robot* robot = robots_[i];
+
         if (robot->isAlive()) {
+            cout << robot->id() << " actions:" << endl;
             robot->actions(this);
-            stillAlive.push_back(robot);
+            i++;
         }
         else {
             destroyedRobots_.push(robot);
+            robots_.erase(robots_.begin() + i);
         }
     }
-    robots_ = stillAlive;
+
+    // Process destroyed and waiting robots
+    processRobotQueues();
 
     // Update battlefield state
     placeRobots();
     displayBattlefield();
 
-    // Process destroyed and waiting robots
-    processRobotQueues();
-
     currentTurn_++;
 }
 
 void Battlefield::setLogFile(const string& filename) {
+    if (logFile_.is_open()) {
+        logFile_.close();
+    }
+
     logFile_.open(filename);
     if (!logFile_.is_open()) {
         cout << "Failed to open log file: " << filename << endl;
     }
+    else {
+        logFileName_ = filename;
+    }
+}
+
+bool Battlefield::openLogFile(const string& filename) {
+    if (logFile_.is_open()) {
+        logFile_.close();
+    }
+
+    logFile_.open(filename);
+
+    if (!logFile_.is_open()) {
+        cout << "Error while opening the log file: " << filename << endl;
+        return false;
+    }
+    return true;
 }
 
 // Helper methods
