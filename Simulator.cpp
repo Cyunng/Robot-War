@@ -29,21 +29,25 @@ void Simulator::displayResults() const {
         }
     }
 
-    ostringstream oss;
-
     cout << "\n===== Battlefield Results =====" << endl;
+    log("\n===== Battlefield Results =====");
     cout << "Total turns played: " << battlefield_.getCurrentTurn() << endl;
-    cout << "Robots remaining" << battlefield_.getRobotCount() << endl;
+    log("Total turns played: " + to_string(battlefield_.getCurrentTurn()));
+    cout << "Robots remaining: " << battlefield_.getRobotCount() << endl;
+    log("Robots remaining: " + to_string(battlefield_.getRobotCount()));
 
     if (battlefield_.getRobotCount() == 1) { // If theres still robot
         Robot* winner = battlefield_.getRobotAt(0, 0); // Find actual winner
         cout << "Winner: " << winner->id() << " (" << winner->robotType() << ")" << endl;
+        log("Winner: " + winner->id() + " (" + winner->robotType() + ")");
     }
     else if (battlefield_.getRobotCount() == 0) { // If theres no robot
         cout << "All robots destroyed!" << endl;
+        log("All robots destroyed!");
     }
     else {
         cout << "Game ended with " << battlefield_.getRobotCount() << " robots still alive" << endl;
+        log("Game ended with " + to_string(battlefield_.getRobotCount()) + " robots still alive");
     }
     
     /*
@@ -68,33 +72,35 @@ bool Simulator::initialize(const string& inputFile) {
 
 // To run the complete simulation
 void Simulator::run() {
-/*
+    /*
     ofstream fileOut("fileOutput1.txt");
 
     for (int t = 1; t <= maxTurns_; ++t) {
-        cout << "=== Turn " << t << " ===" << endl;
-        fileOut << "=== Turn " << t << " ===" << endl;
+        string turnHeader = "=== Turn " + to_string(t) + " ===";
+        cout << turnHeader << endl;
+        battlefield_.log(turnHeader); // Logs to output file
 
         for (Robot* r : battlefield_.getRobots()) {
             if (r->isAlive()) {
-                r->actions(&battlefield_, cout, fileOut);
+                r->actions(&battlefield_); // Assume robot logs
             }
         }
 
         battlefield_.placeRobots();
-        battlefield_.displayBattlefield(cout);
-        battlefield_.displayBattlefield(fileOut);
+        battlefield_.displayBattlefield();
 
-        if (remainingRobots() <= 1) {
+        if (battlefield_.getRobotCount() <= 1) {
+            cout << "Only one robot remains. Ending simulations." << endl;
+            battlefield_.log("Only one robot remains. Ending simulations.");
             break;
         }
-
-        fileOut.close();
     }
+    battlefield_.closeLogFile();
     */
-    /*
+
     if (!initialized_) {
         cout << "Error: Simulation is not initialized" << endl;
+        log("Error: Simulation is not initialized");
         return;
     }
 
@@ -103,7 +109,9 @@ void Simulator::run() {
     }
 
     cout << "===== Battlefield Started  =====" << endl;
+    log("===== Battlefield Started  =====");
     
+    /*
     if (logFile_.is_open()) {
         logFile_ << "===== Battlefield Started  =====" << endl;
     }
@@ -113,6 +121,7 @@ void Simulator::run() {
     if (logFile_.is_open()) {
         logFile_ << "Initial battlefield state:" << endl;
     }
+    */
 
     battlefield_.displayBattlefield();
 
@@ -121,7 +130,7 @@ void Simulator::run() {
     }
 
     displayResults();
-    */
+    log("Simulation complete. Results saved to " + outputfile_);
 }
 
 // To create output file
