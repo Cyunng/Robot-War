@@ -86,7 +86,7 @@ void Simulator::run() {
         battlefield_.setLogFile(outputfile_);
     }
 
-    battlefield_.openLogFile("fileOutput1.txt");
+    battlefield_.openLogFile("fileOutput3.txt");
 
     cout << "===== Battlefield Started  =====" << endl;
     battlefield_.log("===== Battlefield Started  =====");
@@ -109,10 +109,12 @@ void Simulator::run() {
 
 // To create output file
 void Simulator::setOutputFile(const string& filename) {
-    outputfile_ = filename;
+    battlefield_.closeLogFile(); // Close any existing log file
+
     if (!battlefield_.openLogFile(filename)) {
         cout << "Failed to open output file: " << filename << endl;
     }
+    outputfile_ = filename;
     cout << "Output file set to: " << outputfile_ << endl;
     
 }
